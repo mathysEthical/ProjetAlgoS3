@@ -2,7 +2,7 @@
 
 ## TODO
 
-- [ ] Lire la liste de mots
+- [ ] Lire la liste de mots: LoadWordsFromFile
 - [ ] Fonction scoreFromWorld
 - [ ] Classe Dice
 - [ ] Classe Dictionnaire
