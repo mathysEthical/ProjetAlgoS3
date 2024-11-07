@@ -14,3 +14,4 @@
 - [ ] Nuage de mots
 - [ ] Rapport du projet (explication de l'avancé avec les dates)
 - [ ] Modélisation UML
+- [ ] Classe Alphabet (avec scores de chaque lettre)
