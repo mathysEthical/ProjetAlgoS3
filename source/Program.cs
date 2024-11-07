@@ -8,6 +8,7 @@ public class Alphabet{
 
 public class Dice{
     char letter;
+    Plateau board;
     char[] alphabet={'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
     
     public char Letter{
@@ -16,28 +17,47 @@ public class Dice{
         }
     }
 
-    public Dice(){
+    public Dice(Plateau board){
+        this.board=board;
         this.Roll();
     }
+
+    public override string ToString(){
+        return this.Letter.ToString();
+    }
+
     public char Roll(){
-        Random rnd = new Random();
-        this.letter=alphabet[rnd.Next(0, alphabet.Length)];
+        this.letter=alphabet[this.board.rnd.Next(0, alphabet.Length)];
         return this.Letter;
     }
 }
 
 public class Plateau{
     Dice[] dices;
+    int size;
+    public Random rnd = new Random();
     public Dice[] Dices{
         get{
             return this.dices;
         }
     }
     public Plateau(int size){
+        this.size=size;
         this.dices=new Dice[size*size];
         for(int i=0;i<size*size;i++){
-            this.dices[i]=new Dice();
+            this.dices[i]=new Dice(this);
         }
+    }
+
+    public override string ToString(){
+        string toReturn="";
+        for(int i=0;i<this.size;i++){
+            for(int j=0;j<this.size;j++){
+                toReturn+=this.dices[i*this.size+j]+" ";
+            }
+            toReturn+="\n";
+        }
+        return toReturn;
     }
 
     //todo: ToString
@@ -79,11 +99,9 @@ public class Program
     }
     public static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
-        Dice testDice=new Dice();
-        Console.WriteLine(testDice.Letter);
         Dictionary <char,int> letterScores=LoadLetterScore();
-        Plateau board=new Plateau(3);
+        Plateau board=new Plateau(4);
+        Console.WriteLine(board);
     }
 
 }
