@@ -26,6 +26,23 @@ public class Dice{
     }
 }
 
+public class Plateau{
+    Dice[] dices;
+    public Dice[] Dices{
+        get{
+            return this.dices;
+        }
+    }
+    public Plateau(int size){
+        this.dices=new Dice[size*size];
+        for(int i=0;i<size*size;i++){
+            this.dices[i]=new Dice();
+        }
+    }
+
+    //todo: ToString
+}
+
 public class Program
 {
     public static string LoadFile(string filename){
@@ -66,7 +83,7 @@ public class Program
         Dice testDice=new Dice();
         Console.WriteLine(testDice.Letter);
         Dictionary <char,int> letterScores=LoadLetterScore();
-        Console.WriteLine(scoreFromWorld("BONJOUR",letterScores));
+        Plateau board=new Plateau(3);
     }
 
 }
