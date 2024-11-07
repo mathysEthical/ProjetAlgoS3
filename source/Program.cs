@@ -9,6 +9,7 @@ public class Alphabet{
 public class Dice{
     char letter;
     char[] alphabet;
+    char[] facesLetters=new char[6];
     Random rnd;
     int[] lettersProbas;
     public char Letter{
@@ -38,7 +39,9 @@ public class Dice{
         this.rnd=rnd;
         this.alphabet=alphabet;
         this.lettersProbas=lettersProbas;
-        this.Roll();
+        for(int i=0;i<6;i++){
+            this.facesLetters[i]=this.alphabet[ladderValueToIndex(this.rnd.Next(0, sumOfIntArray(this.lettersProbas)))];
+        }
     }
 
     public override string ToString(){
@@ -46,8 +49,24 @@ public class Dice{
     }
 
     public char Roll(){
-        this.letter=alphabet[ladderValueToIndex(this.rnd.Next(0, sumOfIntArray(this.lettersProbas)))];
+        this.letter=this.facesLetters[this.rnd.Next(0, 6)];
         return this.Letter;
+    }
+}
+
+public class Dictionaire{
+    string[] words;
+    public Dictionaire(string[] words){
+        this.words=words;
+    }
+    public Dictionaire searchStartingWith(string prefix){
+        List<string> wordList=new List<string>();
+        for(int i=0;i<this.words.Length;i++){
+            if(this.words[i].StartsWith(prefix)){
+                wordList.Add(this.words[i]);
+            }
+        }
+        return new Dictionaire(wordList.ToArray());
     }
 }
 
@@ -69,6 +88,13 @@ public class Plateau{
         this.dices=new Dice[size*size];
         for(int i=0;i<size*size;i++){
             this.dices[i]=new Dice(rnd,this.alphabet, this.lettersProbas);
+        }
+        this.RollAllDices();
+    }
+
+    public void RollAllDices(){
+        for(int i=0;i<size*size;i++){
+            this.dices[i].Roll();
         }
     }
 
@@ -138,13 +164,37 @@ public class Program
         }
         return scoreToReturn;
     }
+
+    public static int AskSize(){
+        int max=20;
+        int size=max+1;
+        while(size>max || size<1){
+            Console.Write("Taille pour du plateau (max 20): ");
+            int.TryParse(Console.ReadLine(), out size);
+        }
+        return size;
+    }
+
+    public static string AskLanguage(){
+        string language="LANGUAGE";
+        while(language!="FR" && language!="EN"){
+            Console.Write("Language (FR/EN): ");
+            language=Console.ReadLine();
+        }
+        return language;
+    }
+
     public static void Main(string[] args)
     {
+        string language=AskLanguage();
+        Dictionaire dico=new Dictionaire(LoadFile(language+".txt").Split(' '));
+
         string[] lettersContentArray = LoadFile("lettres.txt").Split('\n');
         char[] lettersAlphabet= LoadLettersAlphabet(lettersContentArray);
         Dictionary <char,int> letterScores=LoadLettersScore(lettersContentArray);
         int[] lettersProbas=LoadLettersProbas(lettersContentArray);
-        Plateau board=new Plateau(4,lettersAlphabet,letterScores,lettersProbas);
+        int size=AskSize();
+        Plateau board=new Plateau(size,lettersAlphabet,letterScores,lettersProbas);
         Console.WriteLine(board);
     }
 

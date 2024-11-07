@@ -8,6 +8,7 @@
 - [ ] Classe Dictionnaire
 - [ ] Classe Plateau
 - [ ] Classe Jeu
+- [ ] FindWordsFromBoard
 - [ ] Tests unitaires
 - [ ] Commentaires
 - [ ] Joueur IA
