@@ -1,5 +1,5 @@
 using System;
-
+using System.IO;
 
 public class Dice{
     char letter;
@@ -21,11 +21,14 @@ public class Dice{
     }
 }
 
-
-
 public class Program
 {
-    string[] LoadWordsFromFile(string fileName){
+    public static string LoadFile(string filename){
+        string contents = File.ReadAllText(".\\files\\"+filename);
+        return contents;
+    }
+
+    public static string[] LoadWordsFromFile(string fileName){
         string[] toReturn={};
 
         return toReturn;
@@ -39,6 +42,7 @@ public class Program
         Console.WriteLine("Hello, World!");
         Dice testDice=new Dice();
         Console.WriteLine(testDice.Letter);
+        Console.WriteLine(LoadFile("scores.txt"));
     }
 
 }
