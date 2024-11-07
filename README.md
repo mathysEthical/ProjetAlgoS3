@@ -2,9 +2,9 @@
 
 ## TODO
 
-- [ ] Lire la liste de mots: LoadWordsFromFile
-- [ ] Fonction scoreFromWorld
-- [ ] Classe Dice
+- [x] Lire la liste de mots: LoadWordsFromFile
+- [x] Fonction scoreFromWord
+- [x] Classe Dice
 - [ ] Classe Dictionnaire
 - [ ] Classe Plateau
 - [ ] Classe Jeu

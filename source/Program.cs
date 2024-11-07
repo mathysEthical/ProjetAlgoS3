@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Collections.Generic;
 
 public class Alphabet{
     
@@ -7,7 +8,7 @@ public class Alphabet{
 
 public class Dice{
     char letter;
-    char[] alphabet={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+    char[] alphabet={'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
     
     public char Letter{
         get{
@@ -38,11 +39,24 @@ public class Program
 
         return toReturn;
     }
-    int scoreFromWorld(string word){
+
+    public static Dictionary<char,int> LoadLetterScore(){
+        Dictionary <char,int> toReturn=new Dictionary<char, int>();
+        string[] scoreArray=LoadFile("scores.txt").Split('\n');
+        for(int i=0;i<scoreArray.Length;i++){
+            string[] lineArray=scoreArray[i].Split(' ');
+            string letter=lineArray[0];
+            int ratio=int.Parse(lineArray[1]);
+            toReturn.Add(letter[0],ratio);
+        }
+        return toReturn;
+    }
+
+    public static int scoreFromWorld(string word,Dictionary <char,int> letterScores){
         int scoreToReturn=0;
         for(int i=0;i<word.Length;i++){
             char c = word[i];
-            // scoreToReturn+=alphabetScores[c];
+            scoreToReturn+=letterScores[c];
         }
         return scoreToReturn;
     }
@@ -51,7 +65,8 @@ public class Program
         Console.WriteLine("Hello, World!");
         Dice testDice=new Dice();
         Console.WriteLine(testDice.Letter);
-        Console.WriteLine(LoadFile("scores.txt"));
+        Dictionary <char,int> letterScores=LoadLetterScore();
+        Console.WriteLine(scoreFromWorld("BONJOUR",letterScores));
     }
 
 }
