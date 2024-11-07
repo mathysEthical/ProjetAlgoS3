@@ -9,12 +9,11 @@
 - [x] Classe Plateau
 - [x] Classe Jeu
 - [x] FindWordsFromBoard
-- [ ] Séparation du code en sous ficiers
-- [ ] Tests unitaires
+- [x] Séparation du code en sous fichiers
 - [ ] Commentaires
 - [ ] Joueur IA
+- [ ] Sanitize user input to avoid crash
+- [ ] Tests unitaires
 - [ ] Nuage de mots
 - [ ] Rapport du projet (explication de l'avancé avec les dates)
 - [ ] Modélisation UML
-- [ ] Sanitize user input to avoid crash
-- [ ] Classe Alphabet (avec scores de chaque lettre)
