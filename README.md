@@ -10,9 +10,11 @@
 - [x] Classe Jeu
 - [x] FindWordsFromBoard
 - [x] Séparation du code en sous fichiers
+- [x] Sanitize user input to avoid crash
+- [ ] Optimiser la recherche
+- [ ] Affichage avec Clearpour mieux voir le plateau.
 - [ ] Commentaires
 - [ ] Joueur IA
-- [ ] Sanitize user input to avoid crash
 - [ ] Tests unitaires
 - [ ] Nuage de mots
 - [ ] Rapport du projet (explication de l'avancé avec les dates)

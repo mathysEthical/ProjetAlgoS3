@@ -105,11 +105,8 @@ namespace JeuNamespace
         }
 
         public string AskWord(){
-            string word="";
-            while(word==""){
-                Console.Write("Entrez un mot trouvé: ");
-                word=Console.ReadLine();
-            }
+            Console.Write("Entrez un mot trouvé: ");
+            string word=Console.ReadLine();
             return word.ToUpper();
         }
 

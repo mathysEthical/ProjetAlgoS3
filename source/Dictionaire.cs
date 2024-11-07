@@ -26,6 +26,7 @@ namespace DictionaireNamespace
             List<string> wordList=new List<string>();
             for(int i=0;i<this.words.Length;i++){
                 if(this.words[i].StartsWith(prefix)){
+                    // we only keep words starting with the prefix
                     wordList.Add(this.words[i]);
                 }
             }
