@@ -5,8 +5,8 @@
 - [x] Lire la liste de mots: LoadWordsFromFile
 - [x] Fonction scoreFromWord
 - [x] Classe Dice
-- [ ] Classe Dictionnaire
-- [ ] Classe Plateau
+- [x] Classe Dictionnaire
+- [x] Classe Plateau
 - [ ] Classe Jeu
 - [ ] FindWordsFromBoard
 - [ ] Tests unitaires
@@ -15,4 +15,5 @@
 - [ ] Nuage de mots
 - [ ] Rapport du projet (explication de l'avancé avec les dates)
 - [ ] Modélisation UML
+- [ ] Sanitize user input to avoid crash
 - [ ] Classe Alphabet (avec scores de chaque lettre)
