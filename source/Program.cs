@@ -118,6 +118,7 @@ public class Jeu{
 
     public void NextRound(){
         actualRound++;
+        DateTime start = new DateTime();
         this.board=new Plateau(this.size, this.lettersAlphabet,this.lettersScores,this.lettersProbas);
         string actualPlayer=this.playerName1;
         if(actualRound%2==0){
@@ -130,14 +131,17 @@ public class Jeu{
         // for(int w=0;w<allWords.Length;w++){
         //     Console.WriteLine(allWords[w]);
         // }
-        bool timeCondition=true;
-        while(timeCondition){
+        while((new DateTime()-start).Minutes==0){
             string word=AskWord();
             if(this.dictionaire.Contains(word)){
                 if(allWords.Contains(word)){
                     if(this.currentWords.Contains(word)==false){
                         this.currentWords.Add(word);
-                        Console.WriteLine("Mot valide ! +"+scoreFromWorld(word)+" points");
+                        if((new DateTime()-start).Minutes==0){
+                            Console.WriteLine("Mot valide ! +"+scoreFromWorld(word)+" points");
+                        }{
+                            Console.WriteLine("Temps écoulé avant soumission du mot.");
+                        }
                     }else{
                         Console.WriteLine("Mot déjà accepté.");
                     }
@@ -147,6 +151,11 @@ public class Jeu{
             }else{
                 Console.WriteLine("Mot non présent dans le dictionaire.");
             }
+        }
+        if(actualRound<gameTime){
+            NextRound();
+        }else{
+            Console.WriteLine("Fin du Jeu !");
         }
     }
 
@@ -162,7 +171,7 @@ public class Jeu{
         this.playerName1="Mathys";
         // Console.Write("Nom du joueur 2: ");
         // this.playerName2=Console.ReadLine();
-        this.playerName1="Paul";
+        this.playerName2="Paul";
         // this.gameTime=AskTime();
         this.gameTime=10;
         NextRound();

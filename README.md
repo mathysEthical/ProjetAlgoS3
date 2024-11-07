@@ -7,8 +7,8 @@
 - [x] Classe Dice
 - [x] Classe Dictionnaire
 - [x] Classe Plateau
-- [ ] Classe Jeu
-- [ ] FindWordsFromBoard
+- [x] Classe Jeu
+- [x] FindWordsFromBoard
 - [ ] Tests unitaires
 - [ ] Commentaires
 - [ ] Joueur IA

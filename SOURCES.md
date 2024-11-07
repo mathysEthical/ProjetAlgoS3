@@ -1,0 +1,1 @@
+[TimeSpan](https://www.csharptutorial.net/csharp-tutorial/csharp-timespan/)
