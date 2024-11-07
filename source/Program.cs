@@ -84,6 +84,7 @@ public class Jeu{
     public string[] findAllWords(){
         List<string> wordsList=new List<string>();
         for(int i=0;i<this.size*this.size;i++){
+            // i is the starting dice index in the board
             List<int> usedDicesIndex=new List<int>();
             usedDicesIndex.Add(i);
             List<string> foundWords=new List<string>();
@@ -118,28 +119,30 @@ public class Jeu{
 
     public void NextRound(){
         actualRound++;
-        DateTime start = new DateTime();
-        this.board=new Plateau(this.size, this.lettersAlphabet,this.lettersScores,this.lettersProbas);
         string actualPlayer=this.playerName1;
         if(actualRound%2==0){
             actualPlayer=this.playerName2;
         }
         Console.WriteLine("C'est au tour de "+actualPlayer);
-        Console.WriteLine(board);
+        Console.WriteLine("Génération du plateau...");
+        this.board=new Plateau(this.size, this.lettersAlphabet,this.lettersScores,this.lettersProbas);
         string[] allWords=findAllWords();
         this.currentWords=new List<string>();
+        Console.WriteLine("C'est parti ! Voici le plateau");
+        Console.WriteLine(board);
+        DateTime start = DateTime.Now;
         // for(int w=0;w<allWords.Length;w++){
         //     Console.WriteLine(allWords[w]);
         // }
-        while((new DateTime()-start).Minutes==0){
+        while((DateTime.Now-start).Minutes==0){
             string word=AskWord();
             if(this.dictionaire.Contains(word)){
                 if(allWords.Contains(word)){
                     if(this.currentWords.Contains(word)==false){
                         this.currentWords.Add(word);
-                        if((new DateTime()-start).Minutes==0){
+                        if((DateTime.Now-start).Minutes==0){
                             Console.WriteLine("Mot valide ! +"+scoreFromWorld(word)+" points");
-                        }{
+                        }else{
                             Console.WriteLine("Temps écoulé avant soumission du mot.");
                         }
                     }else{
@@ -150,6 +153,9 @@ public class Jeu{
                 }
             }else{
                 Console.WriteLine("Mot non présent dans le dictionaire.");
+            }
+            if((DateTime.Now-start).Minutes==0){
+                Console.WriteLine("Il vous reste "+(60-(DateTime.Now-start).Seconds).ToString()+" secondes");
             }
         }
         if(actualRound<gameTime){

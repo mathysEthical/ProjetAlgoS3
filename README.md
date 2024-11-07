@@ -9,6 +9,7 @@
 - [x] Classe Plateau
 - [x] Classe Jeu
 - [x] FindWordsFromBoard
+- [ ] Séparation du code en sous ficiers
 - [ ] Tests unitaires
 - [ ] Commentaires
 - [ ] Joueur IA
