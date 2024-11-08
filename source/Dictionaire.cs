@@ -22,15 +22,13 @@ namespace DictionaireNamespace
         public Dictionaire(string[] words){
             this.words=words;
         }
-        public Dictionaire searchStartingWith(string prefix){
-            List<string> wordList=new List<string>();
+        public bool anyStartingWith(string prefix){
             for(int i=0;i<this.words.Length;i++){
                 if(this.words[i].StartsWith(prefix)){
-                    // we only keep words starting with the prefix
-                    wordList.Add(this.words[i]);
+                    return true;
                 }
             }
-            return new Dictionaire(wordList.ToArray());
+            return false;
         }
     }
 

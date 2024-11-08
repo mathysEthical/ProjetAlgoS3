@@ -12,7 +12,7 @@
 - [x] Séparation du code en sous fichiers
 - [x] Sanitize user input to avoid crash
 - [ ] Optimiser la recherche
-- [ ] Affichage avec Clearpour mieux voir le plateau.
+- [ ] Affichage avec Clear pour mieux voir le plateau.
 - [ ] Commentaires
 - [ ] Joueur IA
 - [ ] Tests unitaires

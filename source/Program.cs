@@ -68,9 +68,12 @@ namespace ProgramNamespace
 
         public static void Main(string[] args)
         {
+            const bool testMode=true;
             // config of the game
-            string language=AskLanguage();
-            // string language="FR";
+            string language="FR";
+            if(testMode==false){
+                language=AskLanguage();
+            }
             Dictionaire dico=new Dictionaire(LoadFile(language+".txt").Split(' '));
 
             string[] lettersContentArray = LoadFile("lettres.txt").Split('\n');
@@ -78,7 +81,7 @@ namespace ProgramNamespace
             Dictionary <char,int> letterScores=LoadLettersScore(lettersContentArray);
             int[] lettersProbas=LoadLettersProbas(lettersContentArray);
             
-            Jeu game=new Jeu(lettersAlphabet,letterScores,lettersProbas,dico);
+            Jeu game=new Jeu(lettersAlphabet,letterScores,lettersProbas,dico,testMode);
         }
 
     }

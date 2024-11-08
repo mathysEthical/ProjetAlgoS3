@@ -10,11 +10,11 @@ namespace JeuNamespace
 {
     public class Jeu{
         Plateau board;
-        string playerName1;
-        string playerName2;
+        string playerName1="Mathys";
+        string playerName2="Paul";
         char[] lettersAlphabet;
         int [] lettersProbas;
-        int gameTime;
+        int gameTime=4;
         int actualRound=0;
         List<string> currentWords;
         Dictionary<char,int> lettersScores;
@@ -57,7 +57,7 @@ namespace JeuNamespace
                 foundWords.Add(actualSpelling);
             }
 
-            if(this.dictionaire.searchStartingWith(actualSpelling).Length==0){
+            if(this.dictionaire.anyStartingWith(actualSpelling)==false){
                 return foundWords.ToArray();
             }
             List<string> wordList=new List<string>();
@@ -167,21 +167,20 @@ namespace JeuNamespace
             }
         }
 
-        public Jeu(char[] lettersAlphabet,Dictionary<char,int> lettersScores,int[] lettersProbas, Dictionaire dictionaire){
+        public Jeu(char[] lettersAlphabet,Dictionary<char,int> lettersScores,int[] lettersProbas, Dictionaire dictionaire, bool testMode){
             this.size=AskSize();
             // this.size=4;
             this.lettersProbas=lettersProbas;
             this.lettersScores=lettersScores;
             this.dictionaire=dictionaire;
             this.lettersAlphabet=lettersAlphabet;
-            Console.Write("Nom du joueur 1: ");
-            this.playerName1=Console.ReadLine();
-            // this.playerName1="Mathys";
-            Console.Write("Nom du joueur 2: ");
-            this.playerName2=Console.ReadLine();
-            // this.playerName2="Paul";
-            this.gameTime=AskTime();
-            this.gameTime=10;
+            if(testMode==false){
+                Console.Write("Nom du joueur 1: ");
+                this.playerName1=Console.ReadLine();
+                Console.Write("Nom du joueur 2: ");
+                this.playerName2=Console.ReadLine();
+                this.gameTime=AskTime();
+            }
             NextRound();
 
         }
