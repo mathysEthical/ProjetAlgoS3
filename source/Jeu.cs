@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 
 namespace JeuNamespace
 {
@@ -129,7 +130,16 @@ namespace JeuNamespace
             Console.WriteLine("C'est au tour de "+actualPlayer);
             Console.WriteLine("Génération du plateau...");
             this.board=new Plateau(this.size, this.lettersAlphabet,this.lettersScores,this.lettersProbas,this.testMode);
-            string[] allWords=findAllWords();
+            string[] allWords;
+            if(testMode){
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                allWords=findAllWords();
+                sw.Stop();
+                Console.WriteLine(sw.Elapsed);
+            }else{
+                allWords=findAllWords();
+            }
             this.currentWords=new List<string>();
             Console.WriteLine("C'est parti ! Voici le plateau");
             Console.WriteLine(board);

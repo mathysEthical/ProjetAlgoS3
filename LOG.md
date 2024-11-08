@@ -4,3 +4,5 @@ Pour les scores de chaque lettre: [Scrabble français](https://fr.wikipedia.org/
 Contrainte: Pas le droit d'utlsier 2 fois le même dé pour érire un mot.
 
 Mots les plus longs: 15 carractères
+
+Actuellement le temps de calcul sur le plateau de test est de 19.25
