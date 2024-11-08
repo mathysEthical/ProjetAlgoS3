@@ -112,7 +112,7 @@ namespace JeuNamespace
             return word.ToUpper();
         }
 
-        public int scoreFromWorld(string word){
+        public int scoreFromWord(string word){
             int scoreToReturn=0;
             for(int i=0;i<word.Length;i++){
                 char c = word[i];
@@ -154,7 +154,7 @@ namespace JeuNamespace
                         if(this.currentWords.Contains(word)==false){
                             this.currentWords.Add(word);
                             if((DateTime.Now-start).Minutes==0){
-                                Console.WriteLine("Mot valide ! +"+scoreFromWorld(word)+" points");
+                                Console.WriteLine("Mot valide ! +"+scoreFromWord(word)+" points");
                             }else{
                                 Console.WriteLine("Temps écoulé avant soumission du mot.");
                             }
