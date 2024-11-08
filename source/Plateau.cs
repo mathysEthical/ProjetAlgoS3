@@ -13,14 +13,17 @@ namespace PlateauNamespace
         int size;
         int [] lettersProbas;
         char[] alphabet;
-        public Random rnd = new Random();
+        public Random rnd=new Random(1234);
         public Dice[] Dices{
             get{
                 return this.dices;
             }
         }
-        public Plateau(int size,char[] letters,Dictionary<char,int> lettersScores,int[] lettersProbas){
+        public Plateau(int size,char[] letters,Dictionary<char,int> lettersScores,int[] lettersProbas,bool testMode){
             this.size=size;
+            if(testMode==false){
+                this.rnd=new Random();
+            }
             this.lettersProbas=lettersProbas;
             this.alphabet=letters;
             this.dices=new Dice[size*size];

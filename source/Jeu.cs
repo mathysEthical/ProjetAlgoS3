@@ -19,7 +19,8 @@ namespace JeuNamespace
         List<string> currentWords;
         Dictionary<char,int> lettersScores;
         Dictionaire dictionaire;
-        int size;
+        int size=4;
+        bool testMode;
 
         public static int AskSize(){
             int max=20;
@@ -127,7 +128,7 @@ namespace JeuNamespace
             }
             Console.WriteLine("C'est au tour de "+actualPlayer);
             Console.WriteLine("Génération du plateau...");
-            this.board=new Plateau(this.size, this.lettersAlphabet,this.lettersScores,this.lettersProbas);
+            this.board=new Plateau(this.size, this.lettersAlphabet,this.lettersScores,this.lettersProbas,this.testMode);
             string[] allWords=findAllWords();
             this.currentWords=new List<string>();
             Console.WriteLine("C'est parti ! Voici le plateau");
@@ -168,13 +169,13 @@ namespace JeuNamespace
         }
 
         public Jeu(char[] lettersAlphabet,Dictionary<char,int> lettersScores,int[] lettersProbas, Dictionaire dictionaire, bool testMode){
-            this.size=AskSize();
-            // this.size=4;
             this.lettersProbas=lettersProbas;
             this.lettersScores=lettersScores;
             this.dictionaire=dictionaire;
             this.lettersAlphabet=lettersAlphabet;
-            if(testMode==false){
+            this.testMode=testMode;
+            if(this.testMode==false){
+                this.size=AskSize();
                 Console.Write("Nom du joueur 1: ");
                 this.playerName1=Console.ReadLine();
                 Console.Write("Nom du joueur 2: ");
