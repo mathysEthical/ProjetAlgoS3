@@ -1,4 +1,5 @@
 using DictionaireNamespace;
+using TreeNamespace;
 using ProgramNamespace;
 using PlateauNamespace;
 using System;
@@ -19,7 +20,7 @@ namespace JeuNamespace
         int actualRound=0;
         List<string> currentWords;
         Dictionary<char,int> lettersScores;
-        Dictionaire dictionaire;
+        Tree tree;
         int size=4;
         bool testMode;
 
@@ -55,11 +56,11 @@ namespace JeuNamespace
         }
 
         public string[] Dig(string actualSpelling,int actualPos,List<int> usedDicesIndex, List<string> foundWords){
-            if(this.dictionaire.Contains(actualSpelling) && !foundWords.Contains(actualSpelling)){
+            if(this.tree.Contains(actualSpelling) && !foundWords.Contains(actualSpelling)){
                 foundWords.Add(actualSpelling);
             }
 
-            if(this.dictionaire.anyStartingWith(actualSpelling)==false){
+            if(this.tree.anyStartingWith(actualSpelling)==false){
                 return foundWords.ToArray();
             }
             List<string> wordList=new List<string>();
@@ -145,11 +146,11 @@ namespace JeuNamespace
             Console.WriteLine(board);
             DateTime start = DateTime.Now;
             // for(int w=0;w<allWords.Length;w++){
-            //     Console.WriteLine(allWords[w]);
+            //     Console.WriteLine("Mot possible: "+allWords[w]);
             // }
             while((DateTime.Now-start).Minutes==0){
                 string word=AskWord();
-                if(this.dictionaire.Contains(word)){
+                if(this.tree.Contains(word)){
                     if(allWords.Contains(word)){
                         if(this.currentWords.Contains(word)==false){
                             this.currentWords.Add(word);
@@ -178,10 +179,10 @@ namespace JeuNamespace
             }
         }
 
-        public Jeu(char[] lettersAlphabet,Dictionary<char,int> lettersScores,int[] lettersProbas, Dictionaire dictionaire, bool testMode){
+        public Jeu(char[] lettersAlphabet,Dictionary<char,int> lettersScores,int[] lettersProbas, Tree mainTree, bool testMode){
             this.lettersProbas=lettersProbas;
             this.lettersScores=lettersScores;
-            this.dictionaire=dictionaire;
+            this.tree=mainTree;
             this.lettersAlphabet=lettersAlphabet;
             this.testMode=testMode;
             if(this.testMode==false){

@@ -11,7 +11,7 @@
 - [x] FindWordsFromBoard
 - [x] Séparation du code en sous fichiers
 - [x] Sanitize user input to avoid crash
-- [ ] Optimiser la recherche
+- [x] Optimiser la recherche avec un arbre
 - [ ] Affichage avec Clear pour mieux voir le plateau.
 - [ ] Commentaires
 - [ ] Joueur IA

@@ -9,6 +9,11 @@ namespace DictionaireNamespace
 {    
     public class Dictionaire{
         string[] words;
+        public string[] Words{
+            get{
+                return this.words;
+            }
+        }
         public int Length{
             get{
                 return this.words.Length;

@@ -1,6 +1,7 @@
 using PlateauNamespace;
 using DictionaireNamespace;
 using DiceNamespace;
+using TreeNamespace;
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -14,7 +15,6 @@ namespace ProgramNamespace
             string contents = File.ReadAllText(".\\files\\"+filename);
             return contents;
         }
-
 
         public static string[] LoadWordsFromFile(string fileName){
             string[] toReturn={};
@@ -55,8 +55,6 @@ namespace ProgramNamespace
         }
 
 
-
-
         public static string AskLanguage(){
             string language="LANGUAGE";
             while(language!="FR" && language!="EN"){
@@ -75,13 +73,17 @@ namespace ProgramNamespace
                 language=AskLanguage();
             }
             Dictionaire dico=new Dictionaire(LoadFile(language+".txt").Split(' '));
+            Tree mainTree=new Tree();
+            for(int i=0;i<dico.Words.Length;i++){
+                mainTree.AddWord(dico.Words[i]);
+            }
 
             string[] lettersContentArray = LoadFile("lettres.txt").Split('\n');
             char[] lettersAlphabet= LoadLettersAlphabet(lettersContentArray);
             Dictionary <char,int> letterScores=LoadLettersScore(lettersContentArray);
             int[] lettersProbas=LoadLettersProbas(lettersContentArray);
             
-            Jeu game=new Jeu(lettersAlphabet,letterScores,lettersProbas,dico,testMode);
+            Jeu game=new Jeu(lettersAlphabet,letterScores,lettersProbas,mainTree,testMode);
         }
 
     }
