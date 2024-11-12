@@ -13,9 +13,10 @@
 - [x] Sanitize user input to avoid crash
 - [x] Optimiser la recherche avec un arbre
 - [ ] Ajout verification ouf of index si pas assez de mots
+- [ ] Ajout fonction VerifWord pour clean le code
 - [ ] Affichage avec Clear pour mieux voir le plateau.
 - [ ] Commentaires
-- [ ] Joueur IA
+- [ ] Joueur IA niveau troll : faire en sorte de gagner les points a la fin du timer
 - [ ] Tests unitaires
 - [ ] Nuage de mots
 - [ ] Rapport du projet (explication de l'avancé avec les dates)
