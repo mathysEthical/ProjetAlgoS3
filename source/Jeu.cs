@@ -8,13 +8,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
 using System.Threading;
+using System.Collections;
+using System.Resources;
 
 namespace JeuNamespace
 {
     public class Jeu{
         Plateau board;
         string playerName1="Paul";
-        string playerName2="IA_moy";
+        string playerName2="IA_noob";
         char[] lettersAlphabet;
         int [] lettersProbas;
         int gameTime=4;
@@ -116,6 +118,54 @@ namespace JeuNamespace
             return word.ToUpper();
         }
 
+        public string VerifWord(string word,DateTime start, string[] allWords,string actualPlayer) 
+        {
+            string affichage="";
+            if (this.tree.Contains(word))
+            {
+                if (allWords.Contains(word))
+                {
+                    if (this.currentWords.Contains(word) == false)
+                    {
+                        this.currentWords.Add(word);
+                        if ((DateTime.Now - start).Minutes == 0)
+                        {
+                            affichage = $"Mot valide ! {scoreFromWord(word)} points";
+                            if (actualPlayer == this.playerName1)
+                            {
+                                this.scorePlayer1 += scoreFromWord(word);
+                            }
+                            else
+                            {
+                                this.scorePlayer2 += scoreFromWord(word);
+                            }
+                        }
+                        else
+                        {
+                            affichage = "Temps écoulé avant soumission du mot.";
+                        }
+                    }
+                    else
+                    {
+                        affichage = "Mot déjà accepté.";
+                    }
+                }
+                else
+                {
+                    affichage ="Mot non présent sur le plateau.";
+                }
+            }
+            else 
+            {
+                affichage = "Mot non présent dans le dictionnaire.";
+            }
+            if ((DateTime.Now - start).Minutes == 0)
+            {
+                affichage += $"\nIl vous reste {(60 - (DateTime.Now - start).Seconds).ToString()} secondes";
+            }
+
+            return affichage;
+        }
         public int scoreFromWord(string word){
             int scoreToReturn=0;
             for(int i=0;i<word.Length;i++){
@@ -124,6 +174,7 @@ namespace JeuNamespace
             }
             return scoreToReturn;
         }
+
 
         public void NextRound() {
             actualRound++;
@@ -174,21 +225,9 @@ namespace JeuNamespace
                             idx++;
                             
                         }
-                        Console.WriteLine(allWords[idx]);
-                        this.currentWords.Add(allWords[idx]);
-                        if ((DateTime.Now - start).Minutes == 0)
-                        {
-                            Console.WriteLine("Mot valide ! +" + scoreFromWord(allWords[idx]) + " points");
-                            this.scorePlayer2 += scoreFromWord(allWords[idx]);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Temps écoulé avant soumission du mot.");
-                        }
-                        if ((DateTime.Now - start).Minutes == 0)
-                        {
-                            Console.WriteLine("Il vous reste " + (60 - (DateTime.Now - start).Seconds).ToString() + " secondes");
-                        }
+                        string word = allWords[idx];
+                        Console.WriteLine(word);
+                        Console.WriteLine(VerifWord(word, start, allWords, actualPlayer));
 
                     }
                     else
@@ -204,11 +243,7 @@ namespace JeuNamespace
                                 if (currentWords.Count != 0) 
                                 {
                                     Console.WriteLine(currentWords.Last());
-                                    Console.WriteLine("Mot déjà accepté.");
-                                    if ((DateTime.Now - start).Minutes == 0)
-                                    {
-                                        Console.WriteLine("Il vous reste " + (60 - (DateTime.Now - start).Seconds).ToString() + " secondes");
-                                    }
+                                    Console.WriteLine(VerifWord(currentWords.Last(), start, allWords, actualPlayer));
 
                                 }
                                 else 
@@ -227,22 +262,9 @@ namespace JeuNamespace
                                     }//Si aucun mot ne satisfie les condition on sort de la boucle
 
                                 }
-                                Console.WriteLine(allWords[idx]);
-                                this.currentWords.Add(allWords[idx]);
-                                if ((DateTime.Now - start).Minutes == 0)
-                                {
-                                    Console.WriteLine("Mot valide ! +" + scoreFromWord(allWords[idx]) + " points");
-                                    this.scorePlayer2 += scoreFromWord(allWords[idx]);
-
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Temps écoulé avant soumission du mot.");
-                                }
-                                if ((DateTime.Now - start).Minutes == 0)
-                                {
-                                    Console.WriteLine("Il vous reste " + (60 - (DateTime.Now - start).Seconds).ToString() + " secondes");
-                                }
+                                string word = allWords[idx];
+                                Console.WriteLine(word);
+                                Console.WriteLine(VerifWord(word, start, allWords, actualPlayer));
                                 break;
                         }
                     }
@@ -267,22 +289,9 @@ namespace JeuNamespace
                             idx++;
 
                         }
-                        Console.WriteLine(allWords[idx]);
-                        this.currentWords.Add(allWords[idx]);
-                        if ((DateTime.Now - start).Minutes == 0)
-                        {
-                            Console.WriteLine("Mot valide ! +" + scoreFromWord(allWords[idx]) + " points");
-                            this.scorePlayer2 += scoreFromWord(allWords[idx]);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Temps écoulé avant soumission du mot.");
-                        }
-                        if ((DateTime.Now - start).Minutes == 0)
-                        {
-                            Console.WriteLine("Il vous reste " + (60 - (DateTime.Now - start).Seconds).ToString() + " secondes");
-                        }
-
+                        string word = allWords[idx];
+                        Console.WriteLine(word);
+                        Console.WriteLine(VerifWord(word, start, allWords, actualPlayer));
                     }
                     else
                     {
@@ -293,11 +302,7 @@ namespace JeuNamespace
                                 if (currentWords.Count != 0)
                                 {
                                     Console.WriteLine(currentWords.Last());
-                                    Console.WriteLine("Mot déjà accepté.");
-                                    if ((DateTime.Now - start).Minutes == 0)
-                                    {
-                                        Console.WriteLine("Il vous reste " + (60 - (DateTime.Now - start).Seconds).ToString() + " secondes");
-                                    }
+                                    Console.WriteLine(VerifWord(currentWords.Last(), start, allWords, actualPlayer));
 
                                 }
                                 else
@@ -316,21 +321,9 @@ namespace JeuNamespace
                                     }//Si aucun mot ne satisfie les condition on sort de la boucle
 
                                 }
-                                Console.WriteLine(allWords[idx]);
-                                this.currentWords.Add(allWords[idx]);
-                                if ((DateTime.Now - start).Minutes == 0)
-                                {
-                                    Console.WriteLine("Mot valide ! +" + scoreFromWord(allWords[idx]) + " points");
-                                    this.scorePlayer2 += scoreFromWord(allWords[idx]);
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Temps écoulé avant soumission du mot.");
-                                }
-                                if ((DateTime.Now - start).Minutes == 0)
-                                {
-                                    Console.WriteLine("Il vous reste " + (60 - (DateTime.Now - start).Seconds).ToString() + " secondes");
-                                }
+                                string word = allWords[idx];
+                                Console.WriteLine(word);
+                                Console.WriteLine(VerifWord(word, start, allWords, actualPlayer));
                                 break;
                         }
                     }
@@ -352,21 +345,12 @@ namespace JeuNamespace
                             idx++;
 
                         }
-                        Console.WriteLine(allWords[idx]);
-                        this.currentWords.Add(allWords[idx]);
-                        if ((DateTime.Now - start).Minutes == 0)
-                        {
-                            Console.WriteLine("Mot valide ! +" + scoreFromWord(allWords[idx]) + " points");
-                            this.scorePlayer2 += scoreFromWord(allWords[idx]);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Temps écoulé avant soumission du mot.");
-                        }
-                        if ((DateTime.Now - start).Minutes == 0)
-                        {
-                            Console.WriteLine("Il vous reste " + (60 - (DateTime.Now - start).Seconds).ToString() + " secondes");
-                        }
+                        
+                        string word = allWords[idx];
+                        Console.WriteLine(word);
+                        Console.WriteLine(VerifWord(word, start, allWords, actualPlayer));
+
+
                     }
                     if ((DateTime.Now - start).Minutes != 0) 
                     {
@@ -377,51 +361,11 @@ namespace JeuNamespace
                 else
                 {
                     string word = AskWord();
-                    if (this.tree.Contains(word))
-                    {
-                        if (allWords.Contains(word))
-                        {
-                            if (this.currentWords.Contains(word) == false)
-                            {
-                                this.currentWords.Add(word);
-                                if ((DateTime.Now - start).Minutes == 0)
-                                {
-                                    Console.WriteLine("Mot valide ! +" + scoreFromWord(word) + " points");
-                                    if (actualPlayer == this.playerName1)
-                                    {
-                                        this.scorePlayer1 += scoreFromWord(word);
-                                    }
-                                    else
-                                    {
-                                        this.scorePlayer2 += scoreFromWord(word);
-                                    }
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Temps écoulé avant soumission du mot.");
-                                }
-                            }
-                            else
-                            {
-                                Console.WriteLine("Mot déjà accepté.");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Mot non présent sur le plateau.");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Mot non présent dans le dictionaire.");
-                    }
-                    if ((DateTime.Now - start).Minutes == 0)
-                    {
-                        Console.WriteLine("Il vous reste " + (60 - (DateTime.Now - start).Seconds).ToString() + " secondes");
-                    }
+                    Console.WriteLine(VerifWord(word, start, allWords, actualPlayer));
                 }
                 
             }
+            Console.WriteLine("Temps écoulé !");
             Console.WriteLine("Scores actuels : ");
             Console.WriteLine($"{this.playerName1} : {this.scorePlayer1}");
             Console.WriteLine($"{this.playerName2} : {this.scorePlayer2}");
