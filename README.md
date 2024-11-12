@@ -12,6 +12,7 @@
 - [x] Séparation du code en sous fichiers
 - [x] Sanitize user input to avoid crash
 - [x] Optimiser la recherche avec un arbre
+- [ ] Ajout test IA sans avoir à attendre.
 - [ ] Ajout verification ouf of index si pas assez de mots
 - [ ] Ajout fonction VerifWord pour clean le code
 - [ ] Affichage avec Clear pour mieux voir le plateau.
