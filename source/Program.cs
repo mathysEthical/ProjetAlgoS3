@@ -12,7 +12,7 @@ namespace ProgramNamespace
 {
     public class Program{
         public static string LoadFile(string filename){
-            string contents = File.ReadAllText(".\\files\\"+filename);
+            string contents = File.ReadAllText(".\\ProjetAlgoS3\\files\\"+filename);
             return contents;
         }
 
@@ -66,7 +66,7 @@ namespace ProgramNamespace
 
         public static void Main(string[] args)
         {
-            const bool testMode=true;
+            const bool testMode = true;
             // config of the game
             string language="FR";
             if(testMode==false){

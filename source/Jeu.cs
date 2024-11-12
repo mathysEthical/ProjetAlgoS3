@@ -7,17 +7,20 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
+using System.Threading;
 
 namespace JeuNamespace
 {
     public class Jeu{
         Plateau board;
-        string playerName1="Mathys";
-        string playerName2="Paul";
+        string playerName1="Paul";
+        string playerName2="IA_moy";
         char[] lettersAlphabet;
         int [] lettersProbas;
         int gameTime=4;
         int actualRound=0;
+        int scorePlayer1;
+        int scorePlayer2;
         List<string> currentWords;
         Dictionary<char,int> lettersScores;
         Tree tree;
@@ -122,57 +125,307 @@ namespace JeuNamespace
             return scoreToReturn;
         }
 
-        public void NextRound(){
+        public void NextRound() {
             actualRound++;
-            string actualPlayer=this.playerName1;
-            if(actualRound%2==0){
-                actualPlayer=this.playerName2;
+            string actualPlayer = this.playerName1;
+            if (actualRound % 2 == 0) {
+                actualPlayer = this.playerName2;
             }
-            Console.WriteLine("C'est au tour de "+actualPlayer);
+            Console.WriteLine("C'est au tour de " + actualPlayer);
             Console.WriteLine("Génération du plateau...");
-            this.board=new Plateau(this.size, this.lettersAlphabet,this.lettersScores,this.lettersProbas,this.testMode);
+            this.board = new Plateau(this.size, this.lettersAlphabet, this.lettersScores, this.lettersProbas, this.testMode);
             string[] allWords;
-            if(testMode){
+            if (testMode) {
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
-                allWords=findAllWords();
+                allWords = findAllWords();
                 sw.Stop();
                 Console.WriteLine(sw.Elapsed);
-            }else{
-                allWords=findAllWords();
+            } else {
+                allWords = findAllWords();
             }
-            this.currentWords=new List<string>();
+            this.currentWords = new List<string>();
             Console.WriteLine("C'est parti ! Voici le plateau");
             Console.WriteLine(board);
             DateTime start = DateTime.Now;
+            bool pasDeReecriture = false;
             // for(int w=0;w<allWords.Length;w++){
             //     Console.WriteLine("Mot possible: "+allWords[w]);
             // }
-            while((DateTime.Now-start).Minutes==0){
-                string word=AskWord();
-                if(this.tree.Contains(word)){
-                    if(allWords.Contains(word)){
-                        if(this.currentWords.Contains(word)==false){
-                            this.currentWords.Add(word);
-                            if((DateTime.Now-start).Minutes==0){
-                                Console.WriteLine("Mot valide ! +"+scoreFromWord(word)+" points");
-                            }else{
-                                Console.WriteLine("Temps écoulé avant soumission du mot.");
-                            }
-                        }else{
-                            Console.WriteLine("Mot déjà accepté.");
-                        }
-                    }else{
-                        Console.WriteLine("Mot non présent sur le plateau.");
+            while ((DateTime.Now - start).Minutes == 0)
+            {
+
+                if (actualPlayer == "IA_noob") 
+                {
+                    if (!pasDeReecriture)
+                    {
+                        Console.Write("Entrez un mot trouvé: ");
                     }
-                }else{
-                    Console.WriteLine("Mot non présent dans le dictionaire.");
+                    pasDeReecriture = false ;
+                    Random probas = new Random();
+                    Random temps = new Random();
+                    int nombre = probas.Next(1,7);
+                    int idx = 0;
+                    if (nombre <= 3)
+                    {
+                        Thread.Sleep(10000 + temps.Next(0,2000));//Attend entre 10 et 12 secondes
+                        while (allWords[idx].Length > this.size + 1 || this.currentWords.Contains(allWords[idx]))
+                        {
+                            idx++;
+                            
+                        }
+                        Console.WriteLine(allWords[idx]);
+                        this.currentWords.Add(allWords[idx]);
+                        if ((DateTime.Now - start).Minutes == 0)
+                        {
+                            Console.WriteLine("Mot valide ! +" + scoreFromWord(allWords[idx]) + " points");
+                            this.scorePlayer2 += scoreFromWord(allWords[idx]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Temps écoulé avant soumission du mot.");
+                        }
+                        if ((DateTime.Now - start).Minutes == 0)
+                        {
+                            Console.WriteLine("Il vous reste " + (60 - (DateTime.Now - start).Seconds).ToString() + " secondes");
+                        }
+
+                    }
+                    else
+                    {
+                        switch (nombre)
+                        {
+                            case 4:
+                                Thread.Sleep(6000);//Attend 6 secondes
+                                pasDeReecriture = true;
+                                break;
+                            case 5:
+                                Thread.Sleep(4000);//Attend 4 secondes
+                                if (currentWords.Count != 0) 
+                                {
+                                    Console.WriteLine(currentWords.Last());
+                                    Console.WriteLine("Mot déjà accepté.");
+                                    if ((DateTime.Now - start).Minutes == 0)
+                                    {
+                                        Console.WriteLine("Il vous reste " + (60 - (DateTime.Now - start).Seconds).ToString() + " secondes");
+                                    }
+
+                                }
+                                else 
+                                {
+                                    pasDeReecriture=true;
+                                }
+                                break;
+                            case 6:
+                                Thread.Sleep(8000);//Attend 8 secondes
+                                while (allWords[idx].Length > 3 || this.currentWords.Contains(allWords[idx]))
+                                {
+                                    idx++;
+                                    if (idx >= allWords.Length) 
+                                    {
+                                        break;
+                                    }//Si aucun mot ne satisfie les condition on sort de la boucle
+
+                                }
+                                Console.WriteLine(allWords[idx]);
+                                this.currentWords.Add(allWords[idx]);
+                                if ((DateTime.Now - start).Minutes == 0)
+                                {
+                                    Console.WriteLine("Mot valide ! +" + scoreFromWord(allWords[idx]) + " points");
+                                    this.scorePlayer2 += scoreFromWord(allWords[idx]);
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Temps écoulé avant soumission du mot.");
+                                }
+                                if ((DateTime.Now - start).Minutes == 0)
+                                {
+                                    Console.WriteLine("Il vous reste " + (60 - (DateTime.Now - start).Seconds).ToString() + " secondes");
+                                }
+                                break;
+                        }
+                    }
+
                 }
-                if((DateTime.Now-start).Minutes==0){
-                    Console.WriteLine("Il vous reste "+(60-(DateTime.Now-start).Seconds).ToString()+" secondes");
+                else if(actualPlayer == "IA_moy") 
+                {
+                    if (!pasDeReecriture)
+                    {
+                        Console.Write("Entrez un mot trouvé: ");
+                    }
+                    pasDeReecriture = false;
+                    Random probas = new Random();
+                    Random temps = new Random();
+                    int nombre = probas.Next(1, 7);
+                    int idx = 0;
+                    if (nombre <= 4)
+                    {
+                        Thread.Sleep(5000 + temps.Next(-2000, 2000));//Attend entre 3 et 7 secondes
+                        while (allWords[idx].Length > this.size + 2 || this.currentWords.Contains(allWords[idx]))
+                        {
+                            idx++;
+
+                        }
+                        Console.WriteLine(allWords[idx]);
+                        this.currentWords.Add(allWords[idx]);
+                        if ((DateTime.Now - start).Minutes == 0)
+                        {
+                            Console.WriteLine("Mot valide ! +" + scoreFromWord(allWords[idx]) + " points");
+                            this.scorePlayer2 += scoreFromWord(allWords[idx]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Temps écoulé avant soumission du mot.");
+                        }
+                        if ((DateTime.Now - start).Minutes == 0)
+                        {
+                            Console.WriteLine("Il vous reste " + (60 - (DateTime.Now - start).Seconds).ToString() + " secondes");
+                        }
+
+                    }
+                    else
+                    {
+                        switch (nombre)
+                        {
+                            case 5:
+                                Thread.Sleep(4000);//Attend 4 secondes
+                                if (currentWords.Count != 0)
+                                {
+                                    Console.WriteLine(currentWords.Last());
+                                    Console.WriteLine("Mot déjà accepté.");
+                                    if ((DateTime.Now - start).Minutes == 0)
+                                    {
+                                        Console.WriteLine("Il vous reste " + (60 - (DateTime.Now - start).Seconds).ToString() + " secondes");
+                                    }
+
+                                }
+                                else
+                                {
+                                    pasDeReecriture = true;
+                                }
+                                break;
+                            case 6:
+                                Thread.Sleep(3000);//Attend 3 secondes
+                                while (allWords[idx].Length > 2 || this.currentWords.Contains(allWords[idx]))
+                                {
+                                    idx++;
+                                    if (idx >= allWords.Length)
+                                    {
+                                        break;
+                                    }//Si aucun mot ne satisfie les condition on sort de la boucle
+
+                                }
+                                Console.WriteLine(allWords[idx]);
+                                this.currentWords.Add(allWords[idx]);
+                                if ((DateTime.Now - start).Minutes == 0)
+                                {
+                                    Console.WriteLine("Mot valide ! +" + scoreFromWord(allWords[idx]) + " points");
+                                    this.scorePlayer2 += scoreFromWord(allWords[idx]);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Temps écoulé avant soumission du mot.");
+                                }
+                                if ((DateTime.Now - start).Minutes == 0)
+                                {
+                                    Console.WriteLine("Il vous reste " + (60 - (DateTime.Now - start).Seconds).ToString() + " secondes");
+                                }
+                                break;
+                        }
+                    }
                 }
+                else if(actualPlayer == "IA_troll") 
+                {
+                    int idx = 0;
+                    if (this.scorePlayer2 > this.scorePlayer1 && pasDeReecriture == false) 
+                    {
+                        Console.Write("Entrez un mot trouvé: ");//Juste pour l'affichage joli
+                        pasDeReecriture = true;
+                    }
+                    while (this.scorePlayer2 <= this.scorePlayer1) 
+                    {
+                        Console.Write("Entrez un mot trouvé: ");
+                        Thread.Sleep(193);
+                        while ( this.currentWords.Contains(allWords[idx]))
+                        {
+                            idx++;
+
+                        }
+                        Console.WriteLine(allWords[idx]);
+                        this.currentWords.Add(allWords[idx]);
+                        if ((DateTime.Now - start).Minutes == 0)
+                        {
+                            Console.WriteLine("Mot valide ! +" + scoreFromWord(allWords[idx]) + " points");
+                            this.scorePlayer2 += scoreFromWord(allWords[idx]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Temps écoulé avant soumission du mot.");
+                        }
+                        if ((DateTime.Now - start).Minutes == 0)
+                        {
+                            Console.WriteLine("Il vous reste " + (60 - (DateTime.Now - start).Seconds).ToString() + " secondes");
+                        }
+                    }
+                    if ((DateTime.Now - start).Minutes != 0) 
+                    {
+                        Console.WriteLine("Temps écoulé");
+                    }
+
+                }
+                else
+                {
+                    string word = AskWord();
+                    if (this.tree.Contains(word))
+                    {
+                        if (allWords.Contains(word))
+                        {
+                            if (this.currentWords.Contains(word) == false)
+                            {
+                                this.currentWords.Add(word);
+                                if ((DateTime.Now - start).Minutes == 0)
+                                {
+                                    Console.WriteLine("Mot valide ! +" + scoreFromWord(word) + " points");
+                                    if (actualPlayer == this.playerName1)
+                                    {
+                                        this.scorePlayer1 += scoreFromWord(word);
+                                    }
+                                    else
+                                    {
+                                        this.scorePlayer2 += scoreFromWord(word);
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Temps écoulé avant soumission du mot.");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Mot déjà accepté.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Mot non présent sur le plateau.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Mot non présent dans le dictionaire.");
+                    }
+                    if ((DateTime.Now - start).Minutes == 0)
+                    {
+                        Console.WriteLine("Il vous reste " + (60 - (DateTime.Now - start).Seconds).ToString() + " secondes");
+                    }
+                }
+                
             }
-            if(actualRound<gameTime){
+            Console.WriteLine("Scores actuels : ");
+            Console.WriteLine($"{this.playerName1} : {this.scorePlayer1}");
+            Console.WriteLine($"{this.playerName2} : {this.scorePlayer2}");
+            if (actualRound<gameTime){
                 NextRound();
             }else{
                 Console.WriteLine("Fin du Jeu !");
