@@ -12,6 +12,7 @@
 - [x] Séparation du code en sous fichiers
 - [x] Sanitize user input to avoid crash
 - [x] Optimiser la recherche avec un arbre
+- [ ] Ajout verification ouf of index si pas assez de mots
 - [ ] Affichage avec Clear pour mieux voir le plateau.
 - [ ] Commentaires
 - [ ] Joueur IA
