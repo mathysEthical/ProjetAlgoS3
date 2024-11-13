@@ -12,7 +12,8 @@ namespace ProgramNamespace
 {
     public class Program{
         public static string LoadFile(string filename){
-            string contents = File.ReadAllText(".\\ProjetAlgoS3\\files\\"+filename);
+            string BaseDirectory=System.AppDomain.CurrentDomain.BaseDirectory;
+            string contents = File.ReadAllText(BaseDirectory+"..\\..\\..\\..\\files\\"+filename);
             return contents;
         }
 

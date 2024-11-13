@@ -1,5 +1,10 @@
 # ProjetAlgoS3
 
+## To run the Project:
+```ps1
+dotnet run --project Boggle
+```
+
 ## TODO
 
 - [x] Lire la liste de mots: LoadWordsFromFile
