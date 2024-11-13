@@ -130,7 +130,7 @@ namespace JeuNamespace
                         this.currentWords.Add(word);
                         if ((DateTime.Now - start).Minutes == 0)
                         {
-                            affichage = $"Mot valide ! {scoreFromWord(word)} points";
+                            affichage = $"Mot {word} valide ! {scoreFromWord(word)} points";
                             if (actualPlayer == this.playerName1)
                             {
                                 this.scorePlayer1 += scoreFromWord(word);
@@ -147,17 +147,17 @@ namespace JeuNamespace
                     }
                     else
                     {
-                        affichage = "Mot déjà accepté.";
+                        affichage = "Mot {word} déjà accepté.";
                     }
                 }
                 else
                 {
-                    affichage ="Mot non présent sur le plateau.";
+                    affichage ="Mot {word} non présent sur le plateau.";
                 }
             }
             else 
             {
-                affichage = "Mot non présent dans le dictionnaire.";
+                affichage = "Mot {v} non présent dans le dictionnaire.";
             }
             if ((DateTime.Now - start).Minutes == 0)
             {
@@ -196,8 +196,6 @@ namespace JeuNamespace
                 allWords = findAllWords();
             }
             this.currentWords = new List<string>();
-            Console.WriteLine("C'est parti ! Voici le plateau");
-            Console.WriteLine(this.board);
             DateTime start = DateTime.Now;
             bool pasDeReecriture = false;
             // for(int w=0;w<allWords.Length;w++){
@@ -205,6 +203,8 @@ namespace JeuNamespace
             // }
             while ((DateTime.Now - start).Minutes == 0)
             {
+                Console.WriteLine("Voici le plateau:");
+                Console.WriteLine(this.board);
 
                 if (actualPlayer == "IA_noob") 
                 {
@@ -361,6 +361,7 @@ namespace JeuNamespace
                 else
                 {
                     string word = AskWord();
+                    Console.Clear();
                     Console.WriteLine(VerifWord(word, start, allWords, actualPlayer));
                 }
                 

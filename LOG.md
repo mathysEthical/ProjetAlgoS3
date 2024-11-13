@@ -13,12 +13,11 @@
 ## 8/11/24:
 - Séparation du fichier Program.cs en sous fichiers (namespace)
 - Création du testMode pour tester notre programme rapidement et mesurer ses performances
-- 
-Actuellement le temps de calcul sur le plateau de test est de 19s
+- Actuellement le temps de calcul sur le plateau de test est de **19s**s
 - testMode deterministic avec une seed pour le random
 
 ## 10/11/24:
-- Tree optimization: 3ms sur le plateau de test ! (5000 fois plus rapide)
+- Tree optimization: **3ms** sur le plateau de test ! (5000 fois plus rapide)
 
 ## 12/11/24
 - VerifWord
@@ -27,5 +26,5 @@ Actuellement le temps de calcul sur le plateau de test est de 19s
 
 ## 13/11/24:
 - Conversion du projet en projet C# .NET
-
-- Utilisation du dossier baseFolder pour éviter les problèmes: https://stackoverflow.com/a/15653948
+- Utilisation du dossier baseFolder dans loadFile
+- Ajout de Console.Clear() pour améliorer l'interface

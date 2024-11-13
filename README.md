@@ -18,7 +18,7 @@ dotnet run --project Boggle
 - [x] Sanitize user input to avoid crash
 - [x] Optimiser la recherche avec un arbre
 - [ ] Ajout test IA sans avoir à attendre.
-- [ ] Ajout verification ouf of index si pas assez de mots
+- [ ] Ajout verification out of index si pas assez de mots
 - [x] Ajout fonction VerifWord pour clean le code
 - [ ] Affichage avec Clear pour mieux voir le plateau.
 - [ ] Commentaires
