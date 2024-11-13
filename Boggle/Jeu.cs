@@ -147,22 +147,23 @@ namespace JeuNamespace
                     }
                     else
                     {
-                        affichage = "Mot {word} déjà accepté.";
+                        affichage = $"Mot {word} déjà accepté.";
                     }
                 }
                 else
                 {
-                    affichage ="Mot {word} non présent sur le plateau.";
+                    affichage =$"Mot {word} non présent sur le plateau.";
                 }
             }
             else 
             {
-                affichage = "Mot {v} non présent dans le dictionnaire.";
+                affichage = $"Mot {word} non présent dans le dictionnaire.";
             }
             if ((DateTime.Now - start).Minutes == 0)
             {
                 affichage += $"\nIl vous reste {(60 - (DateTime.Now - start).Seconds).ToString()} secondes";
             }
+            Console.Clear();
 
             return affichage;
         }
@@ -226,7 +227,6 @@ namespace JeuNamespace
                             
                         }
                         string word = allWords[idx];
-                        Console.WriteLine(word);
                         Console.WriteLine(VerifWord(word, start, allWords, actualPlayer));
 
                     }
@@ -361,7 +361,6 @@ namespace JeuNamespace
                 else
                 {
                     string word = AskWord();
-                    Console.Clear();
                     Console.WriteLine(VerifWord(word, start, allWords, actualPlayer));
                 }
                 

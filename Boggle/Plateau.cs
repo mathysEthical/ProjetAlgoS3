@@ -13,7 +13,7 @@ namespace PlateauNamespace
         int size;
         int [] lettersProbas;
         char[] alphabet;
-        public Random rnd=new Random(1234);
+        public Random rnd;
         public Dice[] Dices{
             get{
                 return this.dices;
@@ -23,7 +23,10 @@ namespace PlateauNamespace
             this.size=size;
             if(testMode==false){
                 this.rnd=new Random();
+            }else{
+                this.rnd=new Random(1234);
             }
+            
             this.lettersProbas=lettersProbas;
             this.alphabet=letters;
             this.dices=new Dice[size*size];

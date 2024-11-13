@@ -13,7 +13,7 @@ namespace ProgramNamespace
     public class Program{
         public static string LoadFile(string filename){
             string BaseDirectory=System.AppDomain.CurrentDomain.BaseDirectory;
-            string contents = File.ReadAllText(BaseDirectory+"..\\..\\..\\..\\files\\"+filename);
+            string contents = File.ReadAllText(BaseDirectory+"..\\..\\..\\files\\"+filename);
             return contents;
         }
 
