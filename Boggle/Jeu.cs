@@ -197,7 +197,7 @@ namespace JeuNamespace
             }
             this.currentWords = new List<string>();
             Console.WriteLine("C'est parti ! Voici le plateau");
-            Console.WriteLine(board);
+            Console.WriteLine(this.board);
             DateTime start = DateTime.Now;
             bool pasDeReecriture = false;
             // for(int w=0;w<allWords.Length;w++){
@@ -384,10 +384,16 @@ namespace JeuNamespace
             this.testMode=testMode;
             if(this.testMode==false){
                 this.size=AskSize();
-                Console.Write("Nom du joueur 1: ");
-                this.playerName1=Console.ReadLine();
-                Console.Write("Nom du joueur 2: ");
-                this.playerName2=Console.ReadLine();
+                while (this.playerName1==null)
+                {                    
+                    Console.Write("Nom du joueur 1: ");
+                    this.playerName1=Console.ReadLine();
+                }
+                while (this.playerName2==null)
+                {                    
+                    Console.Write("Nom du joueur 1: ");
+                    this.playerName2=Console.ReadLine();
+                }
                 this.gameTime=AskTime();
             }
             NextRound();

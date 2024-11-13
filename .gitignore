@@ -2,3 +2,5 @@ Program.exe
 run.ps1
 Boggle/bin
 Boggle/obj
+.vs
+.vscode
