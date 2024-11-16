@@ -1,9 +1,5 @@
 # ProjetAlgoS3
 
-## To run the Project:
-```ps1
-dotnet run --project Boggle
-```
 
 ## TODO
 
@@ -20,7 +16,7 @@ dotnet run --project Boggle
 - [x] Ajout fonction VerifWord pour clean le code
 - [x] Affichage avec Clear pour mieux voir le plateau.
 - [ ] Ajout test IA sans avoir à attendre.
-- [ ] Ajout verification out of index si pas assez de mots
+- [x] Ajout verification out of index si pas assez de mots
 - [ ] Commentaires
 - [ ] Joueur IA niveau troll : faire en sorte de gagner les points a la fin du timer
 - [ ] Tests unitaires
