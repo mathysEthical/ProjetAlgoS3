@@ -16,7 +16,7 @@ namespace JeuNamespace
     public class Jeu{
         Plateau board;
         string playerName1="Paul";
-        string playerName2="IA_noob";
+        string playerName2="IA_troll";
         char[] lettersAlphabet;
         int [] lettersProbas;
         int gameTime=4;
@@ -204,13 +204,14 @@ namespace JeuNamespace
             // }
             while ((DateTime.Now - start).Minutes == 0)
             {
-                Console.WriteLine("Voici le plateau:");
-                Console.WriteLine(this.board);
+                
 
                 if (actualPlayer == "IA_noob") 
                 {
                     if (!pasDeReecriture)
                     {
+                        Console.WriteLine("Voici le plateau:");
+                        Console.WriteLine(this.board);
                         Console.Write("Entrez un mot trouvé: ");
                     }
                     pasDeReecriture = false ;
@@ -279,6 +280,8 @@ namespace JeuNamespace
                 {
                     if (!pasDeReecriture)
                     {
+                        Console.WriteLine("Voici le plateau:");
+                        Console.WriteLine(this.board);
                         Console.Write("Entrez un mot trouvé: ");
                     }
                     pasDeReecriture = false;
@@ -340,16 +343,12 @@ namespace JeuNamespace
                 else if(actualPlayer == "IA_troll") 
                 {
                     int idx = 0;
-                    if (this.scorePlayer2 > this.scorePlayer1 && pasDeReecriture == false) 
+                    int scoreP2 = 0;
+                    while (scoreP2 <= this.scorePlayer1) 
                     {
-                        Console.Write("Entrez un mot trouvé: ");//Juste pour l'affichage joli
-                        pasDeReecriture = true;
-                    }
-                    while (this.scorePlayer2 <= this.scorePlayer1) 
-                    {
+                        /*
                         Console.Write("Entrez un mot trouvé: ");
-                        Thread.Sleep(193);
-                        while ( this.currentWords.Contains(allWords[idx]))
+                        while (this.currentWords.Contains(allWords[idx]))
                         {
                             idx++;
                             if (idx >= allWords.Length)
@@ -357,22 +356,36 @@ namespace JeuNamespace
                                 break;
                             }//Si aucun mot ne satisfie les condition on sort de la boucle
 
-                        }
-                        
-                        string word = allWords[idx];
-                        Console.WriteLine(word);
-                        Console.WriteLine(VerifWord(word, start, allWords, actualPlayer));
-
-
+                        }*/
+                        scoreP2 += scoreFromWord(allWords[idx]);
+                        idx++;
                     }
-                    if ((DateTime.Now - start).Minutes != 0) 
+                    int temps = 60000 / (idx + 2);
+                    if (this.scorePlayer2 <= this.scorePlayer1) { 
+                        for (int i = 0; i < idx; i++)
+                        {
+                            Console.WriteLine("Voici le plateau:");
+                            Console.WriteLine(this.board);
+                            Console.Write("Entrez un mot trouvé: ");
+                            Thread.Sleep(temps);
+                            string word = allWords[i];
+                            Console.WriteLine(word);
+                            Console.WriteLine(VerifWord(word, start, allWords, actualPlayer));
+                        }
+                    }
+                    if (!pasDeReecriture)
                     {
-                        Console.WriteLine("Temps écoulé");
+                        Console.WriteLine("Voici le plateau:");
+                        Console.WriteLine(this.board);
+                        Console.Write("Entrez un mot trouvé: ");
+                        pasDeReecriture = true;
                     }
 
                 }
                 else
                 {
+                    Console.WriteLine("Voici le plateau:");
+                    Console.WriteLine(this.board);
                     string word = AskWord();
                     Console.WriteLine(VerifWord(word, start, allWords, actualPlayer));
                 }
