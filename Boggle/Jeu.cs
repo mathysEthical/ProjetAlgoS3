@@ -223,8 +223,13 @@ namespace JeuNamespace
                         Thread.Sleep(10000 + temps.Next(0,2000));//Attend entre 10 et 12 secondes
                         while (allWords[idx].Length > this.size + 1 || this.currentWords.Contains(allWords[idx]))
                         {
-                            idx++;
                             
+                            idx++;
+                            if (idx >= allWords.Length)
+                            {
+                                break;
+                            }//Si aucun mot ne satisfie les condition on sort de la boucle
+
                         }
                         string word = allWords[idx];
                         Console.WriteLine(VerifWord(word, start, allWords, actualPlayer));
@@ -287,6 +292,10 @@ namespace JeuNamespace
                         while (allWords[idx].Length > this.size + 2 || this.currentWords.Contains(allWords[idx]))
                         {
                             idx++;
+                            if (idx >= allWords.Length)
+                            {
+                                break;
+                            }//Si aucun mot ne satisfie les condition on sort de la boucle
 
                         }
                         string word = allWords[idx];
@@ -343,6 +352,10 @@ namespace JeuNamespace
                         while ( this.currentWords.Contains(allWords[idx]))
                         {
                             idx++;
+                            if (idx >= allWords.Length)
+                            {
+                                break;
+                            }//Si aucun mot ne satisfie les condition on sort de la boucle
 
                         }
                         
