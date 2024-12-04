@@ -23,3 +23,5 @@
 - [ ] Nuage de mots
 - [ ] Rapport du projet (explication de l'avancé avec les dates)
 - [ ] Modélisation UML
+- [ ] Try / Catch sur les lectures / ecritures
+- [ ] utiliser le StreamReader pour lire les fichiers
