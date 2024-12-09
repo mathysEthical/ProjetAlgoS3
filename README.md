@@ -15,7 +15,6 @@
 - [x] Optimiser la recherche avec un arbre
 - [x] Ajout fonction VerifWord pour clean le code
 - [x] Affichage avec Clear pour mieux voir le plateau.
-- [ ] Ajout test IA sans avoir à attendre.
 - [x] Ajout verification out of index si pas assez de mots
 - [ ] Commentaires
 - [ ] Joueur IA niveau troll : faire en sorte de gagner les points a la fin du timer
