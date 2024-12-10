@@ -195,6 +195,7 @@ namespace JeuNamespace
                 Console.WriteLine(sw.Elapsed);
             } else {
                 allWords = findAllWords();
+                Console.WriteLine($"Nombre de mots trouvés: {allWords.Length}");
             }
             this.currentWords = new List<string>();
             DateTime start = DateTime.Now;
@@ -402,6 +403,8 @@ namespace JeuNamespace
             }
         }
 
+
+
         public Jeu(char[] lettersAlphabet,Dictionary<char,int> lettersScores,int[] lettersProbas, Tree mainTree, bool testMode){
             this.lettersProbas=lettersProbas;
             this.lettersScores=lettersScores;
@@ -410,6 +413,8 @@ namespace JeuNamespace
             this.testMode=testMode;
             if(this.testMode==false){
                 this.size=AskSize();
+                this.playerName1=null;
+                this.playerName2=null;
                 while (this.playerName1==null)
                 {                    
                     Console.Write("Nom du joueur 1: ");

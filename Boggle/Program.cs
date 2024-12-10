@@ -67,7 +67,7 @@ namespace ProgramNamespace
 
         public static void Main(string[] args)
         {
-            const bool testMode = true;
+            bool testMode = false;
             // config of the game
             string language="FR";
             if(testMode==false){
