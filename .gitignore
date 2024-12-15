@@ -2,5 +2,7 @@ Program.exe
 run.ps1
 Boggle/bin
 Boggle/obj
+UnitTestBoggle/bin
+UnitTestBoggle/obj
 .vs
 .vscode

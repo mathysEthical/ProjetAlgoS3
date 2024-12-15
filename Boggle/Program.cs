@@ -1,4 +1,4 @@
-﻿using DictionaireNamespace;
+﻿using DictionnaireNamespace;
 using TreeNamespace;
 using System;
 using System.IO;
@@ -14,13 +14,6 @@ namespace ProgramNamespace
             string BaseDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
             string contents = File.ReadAllText(BaseDirectory + "..\\..\\..\\files\\" + filename);
             return contents;
-        }
-
-        public static string[] LoadWordsFromFile(string fileName)
-        {
-            string[] toReturn = { };
-
-            return toReturn;
         }
 
         public static int[] LoadLettersProbas(string[] lettersContentArray)
@@ -82,7 +75,7 @@ namespace ProgramNamespace
             {
                 language = AskLanguage();
             }
-            Dictionaire dico = new Dictionaire(LoadFile(language + ".txt").Split(' '));
+            Dictionnaire dico = new Dictionnaire(LoadFile(language + ".txt").Split(' '));
             Tree mainTree = new Tree();
             for (int i = 0; i < dico.Words.Length; i++)
             {

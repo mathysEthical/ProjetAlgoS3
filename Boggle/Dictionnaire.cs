@@ -1,6 +1,6 @@
-﻿namespace DictionaireNamespace
+﻿namespace DictionnaireNamespace
 {
-    public class Dictionaire
+    public class Dictionnaire
     {
         string[] words;
         public string[] Words
@@ -30,7 +30,7 @@
             return false;
         }
 
-        public Dictionaire(string[] words)
+        public Dictionnaire(string[] words)
         {
             this.words = words;
         }
