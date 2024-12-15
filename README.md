@@ -16,11 +16,11 @@
 - [x] Ajout fonction VerifWord pour clean le code
 - [x] Affichage avec Clear pour mieux voir le plateau.
 - [x] Ajout verification out of index si pas assez de mots
+- [x] Tests unitaires
+- [x] Rapport du projet (explication de l'avancé avec les dates)
 - [ ] Commentaires
 - [ ] Joueur IA niveau troll : faire en sorte de gagner les points a la fin du timer
-- [ ] Tests unitaires
 - [ ] Nuage de mots
-- [ ] Rapport du projet (explication de l'avancé avec les dates)
 - [ ] Modélisation UML
 - [ ] Try / Catch sur les lectures / ecritures
 - [ ] utiliser le StreamReader pour lire les fichiers
