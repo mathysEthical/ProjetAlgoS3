@@ -21,6 +21,6 @@ jobs:
       with:
         dotnet-version: 2.0.x
     - name: Build
-      run: dotnet build "Boggle" --no-restore
+      run: export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1;dotnet build "Boggle" --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
