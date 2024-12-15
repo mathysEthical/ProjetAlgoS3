@@ -15,7 +15,7 @@ namespace UnitTestBoggle
         public void diceToString()
         {
             Dice dice = new Dice(new Random(), new char[] { 'A' }, new int[] { 1 });
-            Assert.AreEqual(dice.ToString(), "A);
+            Assert.AreEqual(dice.ToString(), "A");
         }
     }
 }
