@@ -49,8 +49,8 @@ git push
 - [x] Tests unitaires
 - [x] Rapport du projet (explication de l'avancé avec les dates)
 - [ ] Commentaires
-- [ ] Joueur IA niveau troll : faire en sorte de gagner les points a la fin du timer
-- [ ] Nuage de mots
+- [x] Joueur IA niveau troll 
+- [x] Nuage de mots
 - [ ] Modélisation UML
 - [ ] Try / Catch sur les lectures / ecritures
 - [ ] utiliser le StreamReader pour lire les fichiers
