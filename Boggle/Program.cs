@@ -9,7 +9,7 @@ namespace ProgramNamespace
 {
     public class Program
     {
-        public static string LoadFile(string filename)
+        public static string LoadFile(string filename)/// parcours le contenu d'un fichier et le retourne
         {
             string BaseDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
             string contents = File.ReadAllText(BaseDirectory + "..\\..\\..\\files\\" + filename);

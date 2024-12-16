@@ -1,5 +1,35 @@
 # ProjetAlgoS3
+## Git Commands
+## Setup
+- gh auth login - Connecter git à Github
+```sh
+gh auth login
+```
 
+- git clone - Cloner un répertoire
+```sh
+git clone https://github.com/mathysEthical/ProjetAlgoS3.git
+```
+
+## Commandes fréquentes
+
+- git pull - Mettre à jour un répertoire déjà cloné
+```sh
+git pull
+```
+- git add - Ajouter des fichiers à traquer
+```sh
+git add .
+```
+- git commit - Enregistrer les changements
+```sh
+git commit -m "Ajout du solver python"
+```
+
+- git push - Envoyer votre version sur le Github
+```sh
+git push
+```
 
 ## TODO
 

@@ -4,8 +4,8 @@ namespace TreeNamespace
 {
     public class Tree
     {
-        bool isEnd = false;
-        public Dictionary<char, Tree> subTrees = new Dictionary<char, Tree>();
+        bool isEnd = false;/// variable permettant de se situer dans l'arbre par rapport à la fin du mot
+        public Dictionary<char, Tree> subTrees = new Dictionary<char, Tree>();/// définie un sous arbre associé à un enfant
         public Tree()
         {
 
@@ -17,11 +17,11 @@ namespace TreeNamespace
             {
                 if (this.subTrees.ContainsKey(word[0]))
                 {
-                    return this.subTrees[word[0]].anyStartingWith(word.Substring(1));
+                    return this.subTrees[word[0]].anyStartingWith(word.Substring(1));/// utilise la recursivité pour verifier la présence de chaque lettre du mot dans une même branche de l'arbre, change de branche si absence.
                 }
                 else
                 {
-                    return false;
+                    return false;/// Change de branche 
                 }
             }
             else
