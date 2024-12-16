@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.ComponentModel.Design;
 
 namespace JeuNamespace
 {
@@ -37,6 +38,51 @@ namespace JeuNamespace
                 int.TryParse(Console.ReadLine(), out size);
             }
             return size;
+        }
+
+        public static string AskPlayer2Name()
+        {
+            string name = null;
+            Console.Clear();
+            while (name == null)
+            {
+                Console.Write("Voulez vous jouez contre une IA ou un autre joueur ? \n 1) IA \n 2) Autre joueur \n");
+                int choix = 0;
+                int.TryParse(Console.ReadLine(), out choix);
+                switch (choix)
+                {
+                    case 1:
+                        Console.Write("Niveau de l'IA : \n 1) Facile \n 2) Moyen \n 3) Impossible \n");
+                        int choix2 = 0;
+                        int.TryParse(Console.ReadLine(), out choix2);
+                        switch (choix2)
+                        {
+                            case 1:
+                                name = "IA_noob";
+                                break;
+                            case 2:
+                                name = "IA_moy";
+                                break;
+                            case 3:
+                                name = "IA_troll";
+                                break;
+                            default:
+                                Console.Clear();
+                                Console.WriteLine("Choix invalide");
+                                break;
+                        }
+                        break;
+                    case 2:
+                        Console.Write("Nom du joueur 2: ");
+                        name = Console.ReadLine();
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Choix invalide");
+                        break;
+                }
+            }
+            return name;
         }
 
         public static int AskTime()
@@ -560,6 +606,8 @@ namespace JeuNamespace
             }
         }
 
+        
+
         public Jeu(char[] lettersAlphabet, Dictionary<char, int> lettersScores, int[] lettersProbas, Tree mainTree, bool testMode)
         {
            
@@ -580,11 +628,7 @@ namespace JeuNamespace
                     Console.Write("Nom du joueur 1: ");
                     this.playerName1 = Console.ReadLine();
                 }
-                while (this.playerName2 == null)
-                {
-                    Console.Write("Nom du joueur 2: ");
-                    this.playerName2 = Console.ReadLine();
-                }
+                this.playerName2 = AskPlayer2Name();
                 this.gameTime = AskTime();
             }
             NextRound();
