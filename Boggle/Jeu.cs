@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.ComponentModel.Design;
 
 namespace JeuNamespace
 {
@@ -37,6 +38,51 @@ namespace JeuNamespace
                 int.TryParse(Console.ReadLine(), out size);
             }
             return size;
+        }
+
+        public static string AskPlayer2Name()
+        {
+            string name = null;
+            Console.Clear();
+            while (name == null)
+            {
+                Console.Write("Voulez vous jouez contre une IA ou un autre joueur ? \n 1) IA \n 2) Autre joueur \n");
+                int choix = 0;
+                int.TryParse(Console.ReadLine(), out choix);
+                switch (choix)
+                {
+                    case 1:
+                        Console.Write("Niveau de l'IA : \n 1) Facile \n 2) Moyen \n 3) Impossible \n");
+                        int choix2 = 0;
+                        int.TryParse(Console.ReadLine(), out choix2);
+                        switch (choix2)
+                        {
+                            case 1:
+                                name = "IA_noob";
+                                break;
+                            case 2:
+                                name = "IA_moy";
+                                break;
+                            case 3:
+                                name = "IA_troll";
+                                break;
+                            default:
+                                Console.Clear();
+                                Console.WriteLine("Choix invalide");
+                                break;
+                        }
+                        break;
+                    case 2:
+                        Console.Write("Nom du joueur 2: ");
+                        name = Console.ReadLine();
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Choix invalide");
+                        break;
+                }
+            }
+            return name;
         }
 
         public static int AskTime()
@@ -342,14 +388,14 @@ namespace JeuNamespace
                     string lastWord = "";
                     if (nombre <= 4)
                     {
-                        Thread.Sleep(5000 + temps.Next(-2000, 2000));//Attend entre 3 et 7 secondes
+                        Thread.Sleep(5000 + temps.Next(-2000, 2000));///Attend entre 3 et 7 secondes
                         while (allWords[idx].Length > this.size + 2 || this.currentWords.Contains(allWords[idx]))
                         {
                             idx++;
                             if (idx >= allWords.Length)
                             {
                                 break;
-                            }//Si aucun mot ne satisfie les condition on sort de la boucle
+                            }///Si aucun mot ne satisfie les condition on sort de la boucle
 
                         }
                         lastWord = allWords[idx];
@@ -361,7 +407,7 @@ namespace JeuNamespace
                         switch (nombre)
                         {
                             case 5:
-                                Thread.Sleep(4000);//Attend 4 secondes
+                                Thread.Sleep(4000);///Attend 4 secondes
                                 if (currentWords.Count != 0)
                                 {
                                     Console.WriteLine(lastWord);
@@ -374,14 +420,14 @@ namespace JeuNamespace
                                 }
                                 break;
                             case 6:
-                                Thread.Sleep(3000);//Attend 3 secondes
+                                Thread.Sleep(3000);///Attend 3 secondes
                                 while (allWords[idx].Length > 2 || this.currentWords.Contains(allWords[idx]))
                                 {
                                     idx++;
                                     if (idx >= allWords.Length)
                                     {
                                         break;
-                                    }//Si aucun mot ne satisfie les condition on sort de la boucle
+                                    }///Si aucun mot ne satisfie les condition on sort de la boucle
 
                                 }
                                 lastWord = allWords[idx];
@@ -393,28 +439,24 @@ namespace JeuNamespace
                 }
                 else if (actualPlayer == "IA_troll")
                 {
-                    int idx = 0;
+                    Random idx = new Random();
+                    int nb = 0;
+                    int nextIdx = idx.Next(0,allWords.Length);
+                    List<int> idxUtilises = new List<int>();
                     int scoreP2 = 0;
                     while (scoreP2 <= this.scorePlayer1)
                     {
-                        /*
-                        Console.Write("Entrez un mot trouvé: ");
-                        while (this.currentWords.Contains(allWords[idx]))
+                        while (idxUtilises.Contains(nextIdx))
                         {
-                            idx++;
-                            if (idx >= allWords.Length)
-                            {
-                                break;
-                            }//Si aucun mot ne satisfie les condition on sort de la boucle
-
-                        }*/
-                        scoreP2 += scoreFromWord(allWords[idx]);
-                        idx++;
+                            nextIdx = idx.Next(0, allWords.Length);
+                        }
+                        idxUtilises.Add(nextIdx);
+                        scoreP2 += scoreFromWord(allWords[nextIdx]);
+                        nb++;
                     }
-                    int temps = 60000 / (idx + 2);
-                    if (this.scorePlayer2 <= this.scorePlayer1)
-                    {
-                        for (int i = 0; i < idx; i++)
+                    int temps = 60000 / (nb + 2);
+
+                    foreach (int i in idxUtilises)
                         {
                             Console.WriteLine("Voici le plateau:");
                             Console.WriteLine(this.board);
@@ -423,7 +465,6 @@ namespace JeuNamespace
                             string word = allWords[i];
                             Console.WriteLine(word);
                             Console.WriteLine(VerifWord(word, start, allWords, actualPlayer));
-                        }
                     }
                     if (!pasDeReecriture)
                     {
@@ -466,8 +507,8 @@ namespace JeuNamespace
             }
 
             // Dimensions de l'image
-            int largeur = 800;
-            int hauteur = 600;
+            int largeur = 1600;
+            int hauteur = 1200;
 
             using (Bitmap bitmap = new Bitmap(largeur, hauteur))
             using (Graphics graphics = Graphics.FromImage(bitmap))
@@ -557,8 +598,15 @@ namespace JeuNamespace
 
                 // Sauvegarde l'image
                 bitmap.Save(cheminFichier, ImageFormat.Png);
+                ProcessStartInfo startInfo = new ProcessStartInfo(cheminFichier)
+                {
+                    UseShellExecute = true
+                };
+                Process.Start(startInfo);
             }
         }
+
+        
 
         public Jeu(char[] lettersAlphabet, Dictionary<char, int> lettersScores, int[] lettersProbas, Tree mainTree, bool testMode)
         {
@@ -580,16 +628,13 @@ namespace JeuNamespace
                     Console.Write("Nom du joueur 1: ");
                     this.playerName1 = Console.ReadLine();
                 }
-                while (this.playerName2 == null)
-                {
-                    Console.Write("Nom du joueur 2: ");
-                    this.playerName2 = Console.ReadLine();
-                }
+                this.playerName2 = AskPlayer2Name();
                 this.gameTime = AskTime();
             }
             NextRound();
             GenererNuageDeMotsGraphique(motsTrouves, "nuage_de_mots.png");
             Console.WriteLine("Nuage de mots généré : nuage_de_mots.png");
+            
 
         }
     }
