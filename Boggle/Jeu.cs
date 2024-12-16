@@ -1,6 +1,8 @@
 ﻿using TreeNamespace;
 using PlateauNamespace;
 using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
@@ -14,6 +16,7 @@ namespace JeuNamespace
         string playerName2 = "IA_troll";
         char[] lettersAlphabet;
         int[] lettersProbas;
+        Dictionary<string,int> motsTrouves;
         int gameTime = 4;
         int actualRound = 0;
         int scorePlayer1;
@@ -166,6 +169,16 @@ namespace JeuNamespace
                             {
                                 this.scorePlayer2 += scoreFromWord(word);
                             }
+
+                            if (motsTrouves.ContainsKey(word))
+                            {
+                                motsTrouves[word]++;
+                            }
+                            else
+                            {
+                                motsTrouves.Add(word, 1);
+                            }
+
                         }
                         else
                         {
@@ -204,6 +217,7 @@ namespace JeuNamespace
             }
             return scoreToReturn;
         }
+
 
 
         public void NextRound()
@@ -443,15 +457,119 @@ namespace JeuNamespace
             }
         }
 
+        static void GenererNuageDeMotsGraphique(Dictionary<string, int> motsTrouves, string cheminFichier)
+        {
+            if (motsTrouves == null || motsTrouves.Count == 0)
+            {
+                Console.WriteLine("Aucun mot à afficher.");
+                return;
+            }
 
+            // Dimensions de l'image
+            int largeur = 800;
+            int hauteur = 600;
+
+            using (Bitmap bitmap = new Bitmap(largeur, hauteur))
+            using (Graphics graphics = Graphics.FromImage(bitmap))
+            {
+                // Fond blanc
+                graphics.Clear(Color.White);
+
+                // Trie les mots par fréquence décroissante sans LINQ
+                List<KeyValuePair<string, int>> motsTries = new List<KeyValuePair<string, int>>(motsTrouves);
+                motsTries.Sort((x, y) => y.Value.CompareTo(x.Value));
+
+                // Détermine la fréquence maximale
+                int maxFrequence = motsTries[0].Value;
+
+                // Définir une liste de couleurs
+                Color[] couleurs = { Color.Blue, Color.Green, Color.Red, Color.Orange, Color.Purple, Color.Brown };
+                Random random = new Random();
+
+                // Liste pour stocker les rectangles des mots déjà placés
+                List<RectangleF> zonesOccupees = new List<RectangleF>();
+
+                // Centre de l'image
+                float centreX = largeur / 2;
+                float centreY = hauteur / 2;
+
+                // Variable pour ajuster la position des mots
+                float step = 50; // Distance initiale entre les couches de mots
+
+                foreach (var mot in motsTries)
+                {
+                    // Taille proportionnelle à la fréquence avec une taille minimale de 12
+                    int taille = Math.Max(12, (int)Math.Ceiling((double)mot.Value / maxFrequence * 40));
+
+                    // Police
+                    Font font = new Font("Arial", taille, FontStyle.Bold);
+
+                    // Couleur aléatoire
+                    Color couleur = couleurs[random.Next(couleurs.Length)];
+                    Brush brush = new SolidBrush(couleur);
+
+                    // Mesure la taille du mot
+                    SizeF tailleMot = graphics.MeasureString(mot.Key, font);
+                    RectangleF rectangleMot = new RectangleF();
+
+                    // Trouver une position disponible
+                    bool positionTrouvee = false;
+                    for (float angle = 0; !positionTrouvee; angle += (float)Math.PI / 18)
+                    {
+                        float x = centreX + (float)Math.Cos(angle) * step - tailleMot.Width / 2;
+                        float y = centreY + (float)Math.Sin(angle) * step - tailleMot.Height / 2;
+                        rectangleMot = new RectangleF(x, y, tailleMot.Width, tailleMot.Height);
+
+                        // Vérifie si la zone chevauche une autre
+                        positionTrouvee = true;
+                        foreach (var zone in zonesOccupees)
+                        {
+                            if (rectangleMot.IntersectsWith(zone))
+                            {
+                                positionTrouvee = false;
+                                break;
+                            }
+                        }
+
+                        if (angle >= 2 * Math.PI) // Augmente la distance si aucune position trouvée dans un tour
+                        {
+                            angle = 0;
+                            step += 10;
+                        }
+                    }
+
+                    // Dessine le mot
+                    graphics.DrawString(mot.Key, font, brush, rectangleMot.Location);
+
+                    // Ajoute le rectangle à la liste des zones occupées
+                    zonesOccupees.Add(rectangleMot);
+
+                    // Recentre les mots pour équilibrer la répartition
+                    if (zonesOccupees.Count % 2 == 0)
+                    {
+                        centreX -= 15; // Décale légèrement vers la gauche pour équilibrer
+                    }
+                    else
+                    {
+                        centreX += 15; // Décale légèrement vers la droite pour équilibrer
+                    }
+                }
+
+                // Sauvegarde l'image
+                bitmap.Save(cheminFichier, ImageFormat.Png);
+            }
+        }
 
         public Jeu(char[] lettersAlphabet, Dictionary<char, int> lettersScores, int[] lettersProbas, Tree mainTree, bool testMode)
         {
+           
+            
             this.lettersProbas = lettersProbas;
             this.lettersScores = lettersScores;
             this.tree = mainTree;
             this.lettersAlphabet = lettersAlphabet;
             this.testMode = testMode;
+            this.motsTrouves = new Dictionary<string, int>();
             if (this.testMode == false)
             {
                 this.size = AskSize();
@@ -464,12 +582,14 @@ namespace JeuNamespace
                 }
                 while (this.playerName2 == null)
                 {
-                    Console.Write("Nom du joueur 1: ");
+                    Console.Write("Nom du joueur 2: ");
                     this.playerName2 = Console.ReadLine();
                 }
                 this.gameTime = AskTime();
             }
             NextRound();
+            GenererNuageDeMotsGraphique(motsTrouves, "nuage_de_mots.png");
+            Console.WriteLine("Nuage de mots généré : nuage_de_mots.png");
 
         }
     }
