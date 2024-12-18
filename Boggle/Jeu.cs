@@ -17,11 +17,11 @@ namespace JeuNamespace
         string playerName2 = "IA_troll";
         char[] lettersAlphabet;
         int[] lettersProbas;
-        Dictionary<string,int> motsTrouves;
         int gameTime = 4;
         int actualRound = 0;
         int scorePlayer1;
         int scorePlayer2;
+        Dictionary<string, int> motsTrouves;
         List<string> currentWords;
         Dictionary<char, int> lettersScores;
         Tree tree;
@@ -31,8 +31,9 @@ namespace JeuNamespace
         public static int AskSize()
         {
             int max = 20;
+            int min = 4;
             int size = max + 1;
-            while (size > max || size < 1)
+            while (size > max || size < min)
             {
                 Console.Write("Taille pour du plateau (max 20): ");
                 int.TryParse(Console.ReadLine(), out size);
@@ -313,22 +314,23 @@ namespace JeuNamespace
                     Random probas = new Random();
                     Random temps = new Random();
                     int nombre = probas.Next(1, 7);
-                    int idx = 0;
+                    Random idx = new Random();
+                    int nb = 0;
+                    int nextIdx = idx.Next(0, allWords.Length);
                     string lastWord = "";
                     if (nombre <= 3)
                     {
                         Thread.Sleep(10000 + temps.Next(0, 2000));//Attend entre 10 et 12 secondes
-                        while (allWords[idx].Length > this.size + 1 || this.currentWords.Contains(allWords[idx]))
+                        while (allWords[nextIdx].Length > 4 || this.currentWords.Contains(allWords[nextIdx]))
                         {
-
-                            idx++;
-                            if (idx >= allWords.Length)
+                            nb++;
+                            if (nb >= allWords.Length)
                             {
                                 break;
                             }//Si aucun mot ne satisfie les condition on sort de la boucle
 
                         }
-                        lastWord = allWords[idx];
+                        lastWord = allWords[nextIdx];
                         Console.WriteLine(VerifWord(lastWord, start, allWords, actualPlayer));
 
                     }
@@ -355,16 +357,16 @@ namespace JeuNamespace
                                 break;
                             case 6:
                                 Thread.Sleep(8000);//Attend 8 secondes
-                                while (allWords[idx].Length > 3 || this.currentWords.Contains(allWords[idx]))
+                                while (allWords[nextIdx].Length > 3 || this.currentWords.Contains(allWords[nextIdx]))
                                 {
-                                    idx++;
-                                    if (idx >= allWords.Length)
+                                    nb++;
+                                    if (nb >= allWords.Length)
                                     {
                                         break;
                                     }//Si aucun mot ne satisfie les condition on sort de la boucle
 
                                 }
-                                string word = allWords[idx];
+                                string word = allWords[nextIdx];
                                 Console.WriteLine(word);
                                 Console.WriteLine(VerifWord(word, start, allWords, actualPlayer));
                                 break;
@@ -384,21 +386,23 @@ namespace JeuNamespace
                     Random probas = new Random();
                     Random temps = new Random();
                     int nombre = probas.Next(1, 7);
-                    int idx = 0;
+                    Random idx = new Random();
+                    int nb = 0;
+                    int nextIdx = idx.Next(0, allWords.Length);
                     string lastWord = "";
                     if (nombre <= 4)
                     {
                         Thread.Sleep(5000 + temps.Next(-2000, 2000));///Attend entre 3 et 7 secondes
-                        while (allWords[idx].Length > this.size + 2 || this.currentWords.Contains(allWords[idx]))
+                        while (allWords[nextIdx].Length > 5 || this.currentWords.Contains(allWords[nextIdx]))
                         {
-                            idx++;
-                            if (idx >= allWords.Length)
+                            nb++;
+                            if (nb >= allWords.Length)
                             {
                                 break;
                             }///Si aucun mot ne satisfie les condition on sort de la boucle
 
                         }
-                        lastWord = allWords[idx];
+                        lastWord = allWords[nextIdx];
                         Console.WriteLine(lastWord);
                         Console.WriteLine(VerifWord(lastWord, start, allWords, actualPlayer));
                     }
@@ -421,16 +425,16 @@ namespace JeuNamespace
                                 break;
                             case 6:
                                 Thread.Sleep(3000);///Attend 3 secondes
-                                while (allWords[idx].Length > 2 || this.currentWords.Contains(allWords[idx]))
+                                while (allWords[nextIdx].Length > 2 || this.currentWords.Contains(allWords[nextIdx]))
                                 {
-                                    idx++;
-                                    if (idx >= allWords.Length)
+                                    nb++;
+                                    if (nb >= allWords.Length)
                                     {
                                         break;
                                     }///Si aucun mot ne satisfie les condition on sort de la boucle
 
                                 }
-                                lastWord = allWords[idx];
+                                lastWord = allWords[nextIdx];
                                 Console.WriteLine(lastWord);
                                 Console.WriteLine(VerifWord(lastWord, start, allWords, actualPlayer));
                                 break;
@@ -634,6 +638,7 @@ namespace JeuNamespace
             NextRound();
             GenererNuageDeMotsGraphique(motsTrouves, "nuage_de_mots.png");
             Console.WriteLine("Nuage de mots généré : nuage_de_mots.png");
+            Console.ReadKey();
             
 
         }
