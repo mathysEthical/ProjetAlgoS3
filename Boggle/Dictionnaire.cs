@@ -2,15 +2,15 @@
 {
     public class Dictionnaire
     {
-        string[] words;
-        public string[] Words
+        string[] words;///introduit l'attribut "words" (tableau de mots constituant le dictionnaire).
+        public string[] Words///définit la propriété de lecture
         {
             get
             {
                 return this.words;
             }
         }
-        public int Length
+        public int Length///definit la propriété de lecture.
         {
             get
             {
@@ -18,9 +18,9 @@
             }
         }
 
-        public bool Contains(string word)
+        public bool Contains(string word)///vérifie la présence du mot "word" dans le dictionnaire "words".
         {
-            for (int i = 0; i < this.words.Length; i++)
+            for (int i = 0; i < this.words.Length; i++)///passe en revue tous les mots du tableau "words".
             {
                 if (this.words[i] == word)
                 {
@@ -34,9 +34,9 @@
         {
             this.words = words;
         }
-        public bool anyStartingWith(string prefix)
+        public bool anyStartingWith(string prefix)///cherche des mots commençant par le préfix "préfix".
         {
-            for (int i = 0; i < this.words.Length; i++)
+            for (int i = 0; i < this.words.Length; i++)///passe en revue tous les mots du tableau "words".
             {
                 if (this.words[i].StartsWith(prefix))
                 {

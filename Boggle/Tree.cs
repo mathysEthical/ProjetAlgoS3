@@ -17,16 +17,16 @@ namespace TreeNamespace
             {
                 if (this.subTrees.ContainsKey(word[0]))
                 {
-                    return this.subTrees[word[0]].anyStartingWith(word.Substring(1));/// utilise la recursivité pour verifier la présence de chaque lettre du mot dans une même branche de l'arbre, change de branche si absence.
+                    return this.subTrees[word[0]].anyStartingWith(word.Substring(1));/// utilise la récursivité pour orienter la recherche de chaque lettre du mot dans l'arbre, change de branche si nécessaire.
                 }
                 else
                 {
-                    return false;/// Change de branche 
+                    return false;/// change de branche 
                 }
             }
             else
             {
-                return true;
+                return true;/// retourne true car le mot en entrée a été parcouru en entier
             }
         }
 

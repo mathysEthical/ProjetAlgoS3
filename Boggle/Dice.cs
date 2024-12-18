@@ -5,10 +5,10 @@ namespace DiceNamespace
     public class Dice
     {
         char letter;
-        char[] alphabet;
-        char[] facesLetters = new char[6];
+        char[] alphabet;/// créé un tableau de caractères contenant toutes les lettres de l'alphabet.
+        char[] facesLetters = new char[6];/// créé un tableau de caractères dont les éléments correspondent aux valeurs des 6 faces du dé.
         Random rnd;
-        int[] lettersProbas;
+        int[] lettersProbas;/// créé un tableau d'entiers correspondants aux fréquences d'apparition respectives de chaque lettre de l'alphabet.
         public char Letter
         {
             get
@@ -17,24 +17,24 @@ namespace DiceNamespace
             }
         }
 
-        public int ladderValueToIndex(int value)
+        public int ladderValueToIndex(int value)/// associe à une valeur "value" en entrée, un index correspondant à une lettre, suivant le respect des probabilité associées à chaque lettre
         {
             int index = 0;
             int actualLadderValue = 0;
             while (actualLadderValue + this.lettersProbas[index] < value)
             {
-                actualLadderValue += this.lettersProbas[index];
+                actualLadderValue += this.lettersProbas[index];/// ajoute la probabilité de la lettre suivante tant que la valeur "value" n'est pas atteinte
                 index++;
             }
             return index;
         }
 
-        int sumOfIntArray(int[] array)
+        int sumOfIntArray(int[] array)/// utilisé pour effectuer la somme des probas de chaque lettre de l'alphabet.
         {
             int total = 0;
             for (int i = 0; i < array.Length; i++)
             {
-                total += array[i];
+                total += array[i];/// implémente total avec chaque entier du tableau array.
             }
             return total;
         }
