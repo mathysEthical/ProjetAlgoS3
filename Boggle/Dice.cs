@@ -17,7 +17,10 @@ namespace DiceNamespace
             }
         }
 
-        public int ladderValueToIndex(int value)/// associe à une valeur "value" en entrée, un index correspondant à une lettre, suivant le respect des probabilité associées à chaque lettre
+        /// <summary>
+        /// associe à une valeur "value" en entrée, un index correspondant à une lettre, suivant le respect des probabilité associées à chaque lettre
+        /// </summary>
+        public int ladderValueToIndex(int value)
         {
             int index = 0;
             int actualLadderValue = 0;
@@ -29,7 +32,10 @@ namespace DiceNamespace
             return index;
         }
 
-        int sumOfIntArray(int[] array)/// utilisé pour effectuer la somme des probas de chaque lettre de l'alphabet.
+        /// <summary>
+        /// utilisé pour effectuer la somme des probas de chaque lettre de l'alphabet.
+        /// </summary>
+        int sumOfIntArray(int[] array)
         {
             int total = 0;
             for (int i = 0; i < array.Length; i++)
@@ -38,6 +44,10 @@ namespace DiceNamespace
             }
             return total;
         }
+
+        /// <summary>
+        /// Constructeur de la classe Dice.
+        /// </summary>
         public Dice(Random rnd, char[] alphabet, int[] lettersProbas)
         {
             this.rnd = rnd;
@@ -54,6 +64,9 @@ namespace DiceNamespace
             return this.Letter.ToString();
         }
 
+        /// <summary>
+        /// Lance le dé pour avoir une des faces de façon aléatoire
+        /// </summary>
         public char Roll()
         {
             this.letter = this.facesLetters[this.rnd.Next(0, 6)];

@@ -18,7 +18,10 @@
             }
         }
 
-        public bool Contains(string word)///vérifie la présence du mot "word" dans le dictionnaire "words".
+        /// <summary>
+        /// Vérifie la présence du mot "word" dans le dictionnaire "words".
+        /// </summary>
+        public bool Contains(string word)
         {
             for (int i = 0; i < this.words.Length; i++)///passe en revue tous les mots du tableau "words".
             {
@@ -34,7 +37,11 @@
         {
             this.words = words;
         }
-        public bool anyStartingWith(string prefix)///cherche des mots commençant par le préfix "préfix".
+
+        /// <summary>
+        /// cherche des mots commençant par le préfix .
+        /// </summary>
+        public bool anyStartingWith(string prefix)
         {
             for (int i = 0; i < this.words.Length; i++)///passe en revue tous les mots du tableau "words".
             {

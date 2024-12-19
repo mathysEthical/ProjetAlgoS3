@@ -1,5 +1,6 @@
 ﻿using TreeNamespace;
 using PlateauNamespace;
+using JoueurNamespace;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -13,8 +14,10 @@ namespace JeuNamespace
     public class Jeu
     {
         Plateau board;
-        string playerName1 = "Paul";
-        string playerName2 = "IA_troll";
+        Joueur player1;
+        Joueur player2;
+        string playerName1;
+        string playerName2;
         char[] lettersAlphabet;
         int[] lettersProbas;
         int gameTime = 4;
@@ -28,6 +31,9 @@ namespace JeuNamespace
         int size = 4;
         bool testMode;
 
+        /// <summary>
+        /// Demande la taille du plateau à l'utilisateur.
+        /// </summary>
         public static int AskSize()
         {
             int max = 20;
@@ -41,6 +47,9 @@ namespace JeuNamespace
             return size;
         }
 
+        /// <summary>
+        /// Demande le nom du deuxième joueur ou sélectionne une IA.
+        /// </summary>
         public static string AskPlayer2Name()
         {
             string name = null;
@@ -86,6 +95,9 @@ namespace JeuNamespace
             return name;
         }
 
+        /// <summary>
+        /// Demande la durée de la partie à l'utilisateur.
+        /// </summary>
         public static int AskTime()
         {
             int max = 60;
@@ -98,11 +110,17 @@ namespace JeuNamespace
             return size;
         }
 
+        /// <summary>
+        /// Convertit des coordonnées en index.
+        /// </summary>
         public int coordsToIndex(int x, int y)
         {
             return y * this.size + x;
         }
 
+        /// <summary>
+        /// Convertit un index en coordonnées.
+        /// </summary>
         public int[] indexToCoords(int index)
         {
             int[] coords = new int[2];
@@ -111,6 +129,9 @@ namespace JeuNamespace
             return coords;
         }
 
+        /// <summary>
+        /// Explore les voisins de façon récursive pour trouver des mots.
+        /// </summary>
         public string[] Dig(string actualSpelling, int actualPos, List<int> usedDicesIndex, List<string> foundWords)
         {
             if (this.tree.Contains(actualSpelling) && !foundWords.Contains(actualSpelling))
@@ -154,6 +175,9 @@ namespace JeuNamespace
             return wordList.ToArray();
         }
 
+        /// <summary>
+        /// Trouve tous les mots possibles sur le plateau de façon récursive en utilisant la fonction Dig
+        /// </summary>
         public string[] findAllWords()
         {
             List<string> wordsList = new List<string>();
@@ -176,6 +200,9 @@ namespace JeuNamespace
 
         }
 
+        /// <summary>
+        /// Demande un mot à l'utilisateur.
+        /// </summary>
         public string AskWord()
         {
             Console.Write("Entrez un mot trouvé: ");
@@ -183,6 +210,9 @@ namespace JeuNamespace
             return word.ToUpper();
         }
 
+        /// <summary>
+        /// Vérifie si un mot est contenu dans un tableau.
+        /// </summary>
         public bool Contains(string[] array, string word)
         {
             for (int i = 0; i < array.Length; i++)
@@ -195,6 +225,9 @@ namespace JeuNamespace
             return false;
         }
 
+        /// <summary>
+        /// Vérifie la validité d'un mot donné, ajoute les points au joueur actuel et affiche un message en fonction de la validité du mot.
+        /// </summary>
         public string VerifWord(string word, DateTime start, string[] allWords, string actualPlayer)
         {
             string affichage = "";
@@ -254,6 +287,10 @@ namespace JeuNamespace
 
             return affichage;
         }
+
+        /// <summary>
+        /// Calcule le score d'un mot.
+        /// </summary>
         public int scoreFromWord(string word)
         {
             int scoreToReturn = 0;
@@ -266,7 +303,9 @@ namespace JeuNamespace
         }
 
 
-
+        /// <summary>
+        /// Gère le passage au tour suivant avec l'affichage du plateau, la gestion des mots et des joueurs.
+        /// </summary>
         public void NextRound()
         {
             actualRound++;
@@ -295,9 +334,6 @@ namespace JeuNamespace
             this.currentWords = new List<string>();
             DateTime start = DateTime.Now;
             bool pasDeReecriture = false;
-            // for(int w=0;w<allWords.Length;w++){
-            //     Console.WriteLine("Mot possible: "+allWords[w]);
-            // }
             while ((DateTime.Now - start).Minutes == 0)
             {
 
@@ -320,14 +356,14 @@ namespace JeuNamespace
                     string lastWord = "";
                     if (nombre <= 3)
                     {
-                        Thread.Sleep(10000 + temps.Next(0, 2000));//Attend entre 10 et 12 secondes
+                        Thread.Sleep(10000 + temps.Next(0, 2000));///Attend entre 10 et 12 secondes
                         while (allWords[nextIdx].Length > 4 || this.currentWords.Contains(allWords[nextIdx]))
                         {
                             nb++;
                             if (nb >= allWords.Length)
                             {
                                 break;
-                            }//Si aucun mot ne satisfie les condition on sort de la boucle
+                            }///Si aucun mot ne satisfie les condition on sort de la boucle
 
                         }
                         lastWord = allWords[nextIdx];
@@ -339,11 +375,11 @@ namespace JeuNamespace
                         switch (nombre)
                         {
                             case 4:
-                                Thread.Sleep(6000);//Attend 6 secondes
+                                Thread.Sleep(6000);///Attend 6 secondes
                                 pasDeReecriture = true;
                                 break;
                             case 5:
-                                Thread.Sleep(4000);//Attend 4 secondes
+                                Thread.Sleep(4000);///Attend 4 secondes
                                 if (currentWords.Count != 0)
                                 {
                                     Console.WriteLine(lastWord);
@@ -356,14 +392,14 @@ namespace JeuNamespace
                                 }
                                 break;
                             case 6:
-                                Thread.Sleep(8000);//Attend 8 secondes
+                                Thread.Sleep(8000);///Attend 8 secondes
                                 while (allWords[nextIdx].Length > 3 || this.currentWords.Contains(allWords[nextIdx]))
                                 {
                                     nb++;
                                     if (nb >= allWords.Length)
                                     {
                                         break;
-                                    }//Si aucun mot ne satisfie les condition on sort de la boucle
+                                    }///Si aucun mot ne satisfie les condition on sort de la boucle
 
                                 }
                                 string word = allWords[nextIdx];
@@ -502,6 +538,9 @@ namespace JeuNamespace
             }
         }
 
+        /// <summary>
+        /// Génère un nuage de mots a partir des mots trouvés par les 2 joueurs pendant la partie en rendant plus gros les mots trouvés plus de fois.
+        /// </summary>
         static void GenererNuageDeMotsGraphique(Dictionary<string, int> motsTrouves, string cheminFichier)
         {
             if (motsTrouves == null || motsTrouves.Count == 0)
@@ -611,7 +650,9 @@ namespace JeuNamespace
         }
 
         
-
+        /// <summary>
+        /// Constructeur de la classe Jeu.
+        /// </summary>
         public Jeu(char[] lettersAlphabet, Dictionary<char, int> lettersScores, int[] lettersProbas, Tree mainTree, bool testMode)
         {
            
@@ -632,7 +673,10 @@ namespace JeuNamespace
                     Console.Write("Nom du joueur 1: ");
                     this.playerName1 = Console.ReadLine();
                 }
+                this.player1 = new Joueur(this.playerName1, this.tree);
+
                 this.playerName2 = AskPlayer2Name();
+                this.player2 = new Joueur(this.playerName2, this.tree);
                 this.gameTime = AskTime();
             }
             NextRound();

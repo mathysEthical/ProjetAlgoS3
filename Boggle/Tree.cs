@@ -11,6 +11,9 @@ namespace TreeNamespace
 
         }
 
+        /// <summary>
+        /// Vérifie si un mot commence par une certaine séquence de lettres.
+        /// </summary>
         public bool anyStartingWith(string word)
         {
             if (word.Length > 0)
@@ -30,6 +33,9 @@ namespace TreeNamespace
             }
         }
 
+        /// <summary>
+        /// Vérifie si un mot est contenu dans l'arbre.
+        /// </summary>
         public bool Contains(string word)
         {
             if (word.Length > 0)
@@ -50,30 +56,32 @@ namespace TreeNamespace
         }
 
 
-
+        /// <summary>
+        /// Ajoute un mot à l'arbre.
+        /// </summary>
         public void AddWord(string word)
         {
             Tree subTree;
             if (this.subTrees.ContainsKey(word[0]))
             {
-                //if the first letter of the word is already in the tree
+                ///if the first letter of the word is already in the tree
                 subTree = this.subTrees[word[0]];
             }
             else
             {
-                //if the first letter of the word is not in the tree
+                ///if the first letter of the word is not in the tree
                 subTree = new Tree();
                 this.subTrees.Add(word[0], subTree);
             }
 
             if (word.Length == 1)
             {
-                //if the word is only one letter long
+                ///if the word is only one letter long
                 subTree.isEnd = true;
             }
             else
             {
-                //if the word is more than one letter long
+                ///if the word is more than one letter long
                 subTree.AddWord(word.Substring(1));
             }
         }

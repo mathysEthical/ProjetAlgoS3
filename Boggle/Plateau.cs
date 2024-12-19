@@ -19,6 +19,10 @@ namespace PlateauNamespace
                 return this.dices;
             }
         }
+
+        /// <summary>
+        /// Constructeur de la classe Plateau.
+        /// </summary>
         public Plateau(int size, char[] letters, Dictionary<char, int> lettersScores, int[] lettersProbas, bool testMode)
         {
             this.size = size;/// initialise la taille du plateau
@@ -41,6 +45,9 @@ namespace PlateauNamespace
             this.RollAllDices();///initialise chaque dé du plateau
         }
 
+        /// <summary>
+        /// Lance tous les dés du plateau.
+        /// </summary>
         public void RollAllDices()
         {
             for (int i = 0; i < size * size; i++)
@@ -49,7 +56,10 @@ namespace PlateauNamespace
             }
         }
 
-        public override string ToString()/// représente le plateau sous forme de string
+        /// <summary>
+        /// représente le plateau sous forme de string
+        /// </summary>
+        public override string ToString()
         {
             string toReturn = "";/// créé la string à retourner
             for (int i = 0; i < this.size; i++)
