@@ -108,6 +108,8 @@ namespace JeuNamespace
 
         /// <summary>
         /// Convertit des coordonnées en index.
+        /// <param name="x">Abscisse</param>
+        /// <param name="y">Ordonée</param>
         /// </summary>
         public int coordsToIndex(int x, int y)
         {
@@ -116,6 +118,7 @@ namespace JeuNamespace
 
         /// <summary>
         /// Convertit un index en coordonnées.
+        /// <param name="index">Index sur le plateau</param>
         /// </summary>
         public int[] indexToCoords(int index)
         {

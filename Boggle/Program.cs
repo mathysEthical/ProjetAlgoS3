@@ -11,6 +11,7 @@ namespace ProgramNamespace
     {
         /// <summary>
         /// parcours le contenu d'un fichier et le retourne
+        /// <param name="filename">Nom du fichier à lire</param>
         /// </summary>
         public static string LoadFile(string filename)
         {
@@ -47,6 +48,7 @@ namespace ProgramNamespace
 
         /// <summary>
         /// Extrait les probas du fichier lettres
+        /// <param name="lettersContentArray">Tableau contenu dans le fichier lettres</param>
         /// </summary>
         public static int[] LoadLettersProbas(string[] lettersContentArray)
         {
@@ -62,6 +64,7 @@ namespace ProgramNamespace
 
         /// <summary>
         /// constructeur de la classe Dictionnaire
+        /// <param name="lettersContentArray">Tableau contenu dans le fichier lettres</param>
         /// </summary>
         public static Dictionary<char, int> LoadLettersScore(string[] lettersContentArray)
         {

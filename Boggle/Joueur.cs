@@ -51,6 +51,7 @@ namespace JoueurNamespace
 
         /// <summary>
         /// Ajoute un mot au dictionnaire des mots trouvés.
+        /// <param name="word">mot à ajouter</param>
         /// </summary>
         public void AddWord(string word)
         {
@@ -79,6 +80,7 @@ namespace JoueurNamespace
 
         /// <summary>
         /// Constructeur de la classe Joueur.
+        /// <param name="playerName">nom du joueur</param>
         /// </summary>
         public Joueur(string playerName)
         {

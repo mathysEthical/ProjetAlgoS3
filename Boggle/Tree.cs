@@ -35,6 +35,7 @@ namespace TreeNamespace
 
         /// <summary>
         /// Vérifie si un mot est contenu dans l'arbre.
+        /// <param name="word">Mot à chercher</param>
         /// </summary>
         public bool Contains(string word)
         {
@@ -58,6 +59,7 @@ namespace TreeNamespace
 
         /// <summary>
         /// Ajoute un mot à l'arbre.
+        /// <param name="word">Mot à ajouter</param>
         /// </summary>
         public void AddWord(string word)
         {

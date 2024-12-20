@@ -40,6 +40,7 @@
 
         /// <summary>
         /// cherche des mots commençant par le préfix .
+        /// <param name="prefix">Prefix du mot à chercher</param>
         /// </summary>
         public bool anyStartingWith(string prefix)
         {
