@@ -23,18 +23,10 @@ namespace PlateauNamespace
         /// <summary>
         /// Constructeur de la classe Plateau.
         /// </summary>
-        public Plateau(int size, char[] letters, Dictionary<char, int> lettersScores, int[] lettersProbas, bool testMode)
+        public Plateau(int size, char[] letters, Dictionary<char, int> lettersScores, int[] lettersProbas)
         {
             this.size = size;/// initialise la taille du plateau
-            if (testMode == false)
-            {
-                this.rnd = new Random();
-            }
-            else
-            {
-                this.rnd = new Random(1234);
-            }
-
+            this.rnd = new Random();
             this.lettersProbas = lettersProbas;
             this.alphabet = letters;
             this.dices = new Dice[size * size];

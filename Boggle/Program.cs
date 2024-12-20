@@ -66,17 +66,13 @@ namespace ProgramNamespace
         }
 
         /// <summary>
-        /// lance le jeu
+        /// lance et configure le jeu
         /// </summary>
         public static void Main(string[] args)
         {
-            bool testMode = false;
-            // config of the game
+            /// config of the game
             string language = "FR";
-            if (testMode == false)
-            {
-                language = AskLanguage();
-            }
+            language = AskLanguage();
             Dictionnaire dico = new Dictionnaire(LoadFile(language + ".txt").Split(' '));
             Tree mainTree = new Tree();
             for (int i = 0; i < dico.Words.Length; i++)
@@ -89,7 +85,7 @@ namespace ProgramNamespace
             Dictionary<char, int> letterScores = LoadLettersScore(lettersContentArray);
             int[] lettersProbas = LoadLettersProbas(lettersContentArray);
 
-            Jeu game = new Jeu(lettersAlphabet, letterScores, lettersProbas, mainTree, testMode);
+            Jeu game = new Jeu(lettersAlphabet, letterScores, lettersProbas, mainTree);
         }
 
     }

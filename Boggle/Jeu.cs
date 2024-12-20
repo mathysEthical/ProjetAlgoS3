@@ -29,7 +29,6 @@ namespace JeuNamespace
         Dictionary<char, int> lettersScores;
         Tree tree;
         int size = 4;
-        bool testMode;
 
         /// <summary>
         /// Demande la taille du plateau à l'utilisateur.
@@ -244,20 +243,30 @@ namespace JeuNamespace
                             if (actualPlayer == this.playerName1)
                             {
                                 this.scorePlayer1 += scoreFromWord(word);
+                                if (motsTrouves.ContainsKey(word))
+                                {
+                                    this.player1.MotsTrouves[word]++;
+                                }
+                                else
+                                {
+                                    this.player1.MotsTrouves.Add(word, 1);
+                                }
                             }
                             else
                             {
                                 this.scorePlayer2 += scoreFromWord(word);
+                                if (motsTrouves.ContainsKey(word))
+                                {
+                                    this.player2.MotsTrouves[word]++;
+                                }
+                                else
+                                {
+                                    this.player2.MotsTrouves.Add(word, 1);
+                                }
                             }
 
-                            if (motsTrouves.ContainsKey(word))
-                            {
-                                motsTrouves[word]++;
-                            }
-                            else
-                            {
-                                motsTrouves.Add(word, 1);
-                            }
+                            
+                            
 
                         }
                         else
@@ -316,21 +325,10 @@ namespace JeuNamespace
             }
             Console.WriteLine("C'est au tour de " + actualPlayer);
             Console.WriteLine("Génération du plateau...");
-            this.board = new Plateau(this.size, this.lettersAlphabet, this.lettersScores, this.lettersProbas, this.testMode);
+            this.board = new Plateau(this.size, this.lettersAlphabet, this.lettersScores, this.lettersProbas);
             string[] allWords;
-            if (testMode)
-            {
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
-                allWords = findAllWords();
-                sw.Stop();
-                Console.WriteLine(sw.Elapsed);
-            }
-            else
-            {
-                allWords = findAllWords();
-                Console.WriteLine("Nombre de mots trouvés: "+allWords.Length);
-            }
+            allWords = findAllWords();
+            Console.WriteLine("Nombre de mots trouvés: "+allWords.Length);
             this.currentWords = new List<string>();
             DateTime start = DateTime.Now;
             bool pasDeReecriture = false;
@@ -649,11 +647,20 @@ namespace JeuNamespace
             }
         }
 
-        
+        /// <summary>
+        /// Génère les nuages de mots pour chaque joueur.
+        /// </summary>
+        public void GenererNuagesDeMots()
+        {
+            GenererNuageDeMotsGraphique(this.player1.MotsTrouves, "nuage_de_mots_" + this.playerName1 + ".png");
+            GenererNuageDeMotsGraphique(this.player2.MotsTrouves, "nuage_de_mots_" + this.playerName2 + ".png");
+            Console.WriteLine("Nuages de mots générés : nuage_de_mots_" + this.playerName1 + ".png et nuage_de_mots_" + this.playerName2 + ".png");
+        }
+
         /// <summary>
         /// Constructeur de la classe Jeu.
         /// </summary>
-        public Jeu(char[] lettersAlphabet, Dictionary<char, int> lettersScores, int[] lettersProbas, Tree mainTree, bool testMode)
+        public Jeu(char[] lettersAlphabet, Dictionary<char, int> lettersScores, int[] lettersProbas, Tree mainTree)
         {
            
             
@@ -661,10 +668,8 @@ namespace JeuNamespace
             this.lettersScores = lettersScores;
             this.tree = mainTree;
             this.lettersAlphabet = lettersAlphabet;
-            this.testMode = testMode;
             this.motsTrouves = new Dictionary<string, int>();
-            if (this.testMode == false)
-            {
+           
                 this.size = AskSize();
                 this.playerName1 = null;
                 this.playerName2 = null;
@@ -678,9 +683,9 @@ namespace JeuNamespace
                 this.playerName2 = AskPlayer2Name();
                 this.player2 = new Joueur(this.playerName2, this.tree);
                 this.gameTime = AskTime();
-            }
+            
             NextRound();
-            GenererNuageDeMotsGraphique(motsTrouves, "nuage_de_mots.png");
+            GenererNuagesDeMots();
             Console.WriteLine("Nuage de mots généré : nuage_de_mots.png");
             Console.ReadKey();
             

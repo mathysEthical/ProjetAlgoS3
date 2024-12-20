@@ -12,6 +12,18 @@ namespace JoueurNamespace
         Dictionary<string, int> motsTrouves;
         Tree tree;
 
+        public Dictionary<string, int> MotsTrouves
+        {
+            get
+            {
+                return this.motsTrouves;
+            }
+            set
+            {
+                this.motsTrouves = value;
+            }
+        }
+
         /// <summary>
         /// Vérifie si un mot est contenu dans un tableau.
         /// </summary>
