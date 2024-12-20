@@ -23,6 +23,10 @@ namespace PlateauNamespace
         /// <summary>
         /// Constructeur de la classe Plateau.
         /// </summary>
+        /// <param name="letters">Alphabet</param>
+        /// <param name="lettersProbas">Probabilités d'apparition des lettres</param>
+        /// <param name="lettersScores">Score associé à chaque lettre</param>
+        /// <param name="size">Taille du plateau</param>
         public Plateau(int size, char[] letters, Dictionary<char, int> lettersScores, int[] lettersProbas)
         {
             this.size = size;/// initialise la taille du plateau

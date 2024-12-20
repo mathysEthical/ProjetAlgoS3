@@ -130,6 +130,10 @@ namespace JeuNamespace
         /// <summary>
         /// Explore les voisins de façon récursive pour trouver des mots.
         /// </summary>
+        /// <param name="actualPos">Position actuelle</param>
+        /// <param name="actualSpelling">Mot actuel</param>
+        /// <param name="foundWords">Liste des mots trouvés</param>
+        /// <param name="usedDicesIndex">Liste des dés utilisés</param>
         public string[] Dig(string actualSpelling, int actualPos, List<int> usedDicesIndex, List<string> foundWords)
         {
             if (this.tree.Contains(actualSpelling) && !foundWords.Contains(actualSpelling))
@@ -226,6 +230,10 @@ namespace JeuNamespace
         /// <summary>
         /// Vérifie la validité d'un mot donné, ajoute les points au joueur actuel et affiche un message en fonction de la validité du mot.
         /// </summary>
+        /// <param name="word">Mot à vérifier</param>
+        /// <param name="actualPlayer">Joueur actuel</param>
+        /// <param name="allWords">Liste de tous les mots possibles du plateau</param>
+        /// <param name="start">Temps de début du tour</param>
         public string VerifWord(string word, DateTime start, string[] allWords, string actualPlayer)
         {
             string affichage = "";
@@ -538,6 +546,8 @@ namespace JeuNamespace
         /// <summary>
         /// Génère un nuage de mots a partir des mots trouvés par les 2 joueurs pendant la partie en rendant plus gros les mots trouvés plus de fois.
         /// </summary>
+        /// <param name="cheminFichier">Chemin du fichier de sortie</param>
+        /// <param name="motsTrouves">Dictionnaire des mots trouvés d'un des joueurs</param>
         static void GenererNuageDeMotsGraphique(Dictionary<string, int> motsTrouves, string cheminFichier)
         {
             if (motsTrouves == null || motsTrouves.Count == 0)
@@ -659,6 +669,10 @@ namespace JeuNamespace
         /// <summary>
         /// Constructeur de la classe Jeu.
         /// </summary>
+        /// <param name="lettersAlphabet">Alphabet du jeu</param>
+        /// <param name="lettersProbas">Probabilités d'apparition des lettres</param>
+        /// <param name="lettersScores">Scores associés à chaque lettre</param>
+        /// <param name="mainTree">Arbre de stockage des mots</param>
         public Jeu(char[] lettersAlphabet, Dictionary<char, int> lettersScores, int[] lettersProbas, Tree mainTree)
         {
            
