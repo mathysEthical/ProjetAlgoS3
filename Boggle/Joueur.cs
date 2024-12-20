@@ -49,6 +49,8 @@ namespace JoueurNamespace
         /// <summary>
         /// Vérifie si un mot est contenu dans un tableau.
         /// </summary>
+        /// <param name="word">mot à chercher</param>
+        /// <param name="array">tableau de mots</param>
         public bool Contains(string[] array, string word)
         {
             for (int i = 0; i < array.Length; i++)

@@ -14,6 +14,7 @@ namespace TreeNamespace
         /// <summary>
         /// Vérifie si un mot commence par une certaine séquence de lettres.
         /// </summary>
+        /// <param name="word">Mot à chercher</param>
         public bool anyStartingWith(string word)
         {
             if (word.Length > 0)

@@ -20,6 +20,7 @@ namespace DiceNamespace
         /// <summary>
         /// associe à une valeur "value" en entrée, un index correspondant à une lettre, suivant le respect des probabilité associées à chaque lettre
         /// </summary>
+        /// <param name="value">valeur à associer à une lettre</param>
         public int ladderValueToIndex(int value)
         {
             int index = 0;
@@ -35,6 +36,7 @@ namespace DiceNamespace
         /// <summary>
         /// utilisé pour effectuer la somme des probas de chaque lettre de l'alphabet.
         /// </summary>
+        /// <param name="array">tableau d'entiers</param>
         int sumOfIntArray(int[] array)
         {
             int total = 0;
@@ -48,6 +50,9 @@ namespace DiceNamespace
         /// <summary>
         /// Constructeur de la classe Dice.
         /// </summary>
+        /// <param name="alphabet">Alphabet</param>
+        /// <param name="lettersProbas">Probabilités d'apparition des lettres</param>
+        /// <param name="rnd">Générateur de nombres aléatoires</param>
         public Dice(Random rnd, char[] alphabet, int[] lettersProbas)
         {
             this.rnd = rnd;

@@ -21,6 +21,7 @@
         /// <summary>
         /// Vérifie la présence du mot "word" dans le dictionnaire "words".
         /// </summary>
+        /// <param name="word">Mot à chercher</param>
         public bool Contains(string word)
         {
             for (int i = 0; i < this.words.Length; i++)///passe en revue tous les mots du tableau "words".

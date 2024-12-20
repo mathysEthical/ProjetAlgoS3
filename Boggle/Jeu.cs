@@ -305,6 +305,7 @@ namespace JeuNamespace
         /// <summary>
         /// Calcule le score d'un mot.
         /// </summary>
+        /// <param name="word">Mot à évaluer</param>
         public int scoreFromWord(string word)
         {
             int scoreToReturn = 0;
