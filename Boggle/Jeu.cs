@@ -334,7 +334,6 @@ namespace JeuNamespace
             this.board = new Plateau(this.size, this.lettersAlphabet, this.lettersScores, this.lettersProbas);
             string[] allWords;
             allWords = findAllWords();
-            Console.WriteLine("Nombre de mots trouvés: "+allWords.Length);
             this.currentWords = new List<string>();
             DateTime start = DateTime.Now;
             bool pasDeReecriture = false;
@@ -353,12 +352,12 @@ namespace JeuNamespace
                     pasDeReecriture = false;
                     Random probas = new Random();
                     Random temps = new Random();
-                    int nombre = probas.Next(1, 7);
+                    int nextProbas = probas.Next(1, 7);
                     Random idx = new Random();
                     int nb = 0;
                     int nextIdx = idx.Next(0, allWords.Length);
                     string lastWord = "";
-                    if (nombre <= 3)
+                    if (nextProbas <= 3)
                     {
                         Thread.Sleep(10000 + temps.Next(0, 2000));///Attend entre 10 et 12 secondes
                         while (allWords[nextIdx].Length > 4 || this.currentWords.Contains(allWords[nextIdx]))
@@ -376,7 +375,7 @@ namespace JeuNamespace
                     }
                     else
                     {
-                        switch (nombre)
+                        switch (nextProbas)
                         {
                             case 4:
                                 Thread.Sleep(6000);///Attend 6 secondes
@@ -425,12 +424,12 @@ namespace JeuNamespace
                     pasDeReecriture = false;
                     Random probas = new Random();
                     Random temps = new Random();
-                    int nombre = probas.Next(1, 7);
+                    int nextProbas = probas.Next(1, 7);
                     Random idx = new Random();
                     int nb = 0;
                     int nextIdx = idx.Next(0, allWords.Length);
                     string lastWord = "";
-                    if (nombre <= 4)
+                    if (nextProbas <= 4)
                     {
                         Thread.Sleep(5000 + temps.Next(-2000, 2000));///Attend entre 3 et 7 secondes
                         while (allWords[nextIdx].Length > 4 || this.currentWords.Contains(allWords[nextIdx]))
@@ -448,7 +447,7 @@ namespace JeuNamespace
                     }
                     else
                     {
-                        switch (nombre)
+                        switch (nextProbas)
                         {
                             case 5:
                                 Thread.Sleep(4000);///Attend 4 secondes
