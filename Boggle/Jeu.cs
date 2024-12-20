@@ -429,7 +429,7 @@ namespace JeuNamespace
                     if (nombre <= 4)
                     {
                         Thread.Sleep(5000 + temps.Next(-2000, 2000));///Attend entre 3 et 7 secondes
-                        while (allWords[nextIdx].Length > 5 || this.currentWords.Contains(allWords[nextIdx]))
+                        while (allWords[nextIdx].Length > 4 || this.currentWords.Contains(allWords[nextIdx]))
                         {
                             nb++;
                             if (nb >= allWords.Length)
