@@ -23,7 +23,7 @@
 
 - Séparation du fichier Program.cs en sous fichiers (namespace)
 - Création du testMode pour tester notre programme rapidement et mesurer ses performances
-- Actuellement le temps de calcul sur le plateau de test est de **19s**s
+- Actuellement le temps de calcul sur le plateau de test est de **19s**
 - testMode deterministic avec une seed pour le random
 </details>
 
