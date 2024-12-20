@@ -691,10 +691,10 @@ namespace JeuNamespace
                     Console.Write("Nom du joueur 1: ");
                     this.playerName1 = Console.ReadLine();
                 }
-                this.player1 = new Joueur(this.playerName1, this.tree);
+                this.player1 = new Joueur(this.playerName1);
 
                 this.playerName2 = AskPlayer2Name();
-                this.player2 = new Joueur(this.playerName2, this.tree);
+                this.player2 = new Joueur(this.playerName2);
                 this.gameTime = AskTime();
             
             NextRound();

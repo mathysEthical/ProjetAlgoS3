@@ -10,7 +10,7 @@ namespace JoueurNamespace
         string playerName;
         int scorePlayer = 0;
         Dictionary<string, int> motsTrouves;
-        Tree tree;
+
 
         public Dictionary<string, int> MotsTrouves
         {
@@ -70,11 +70,10 @@ namespace JoueurNamespace
         /// <summary>
         /// Constructeur de la classe Joueur.
         /// </summary>
-        public Joueur(string playerName, Tree mainTree)
+        public Joueur(string playerName)
         {
 
 
-            this.tree = mainTree;
             this.motsTrouves = new Dictionary<string, int>();
             this.playerName = playerName;
 
