@@ -54,3 +54,4 @@ git push
 - [x] Try / Catch sur les lectures / ecritures
 - [x] utiliser le StreamReader pour lire les fichiers
 - [x] Modélisation UML
+- [x] TOUT COCHER 
