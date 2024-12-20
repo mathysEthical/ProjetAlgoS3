@@ -53,4 +53,4 @@ git push
 - [x] Nuage de mots
 - [x] Try / Catch sur les lectures / ecritures
 - [x] utiliser le StreamReader pour lire les fichiers
-- [ ] Modélisation UML
+- [x] Modélisation UML
