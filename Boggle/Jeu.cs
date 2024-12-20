@@ -19,7 +19,6 @@ namespace JeuNamespace
         int[] lettersProbas;
         int gameTime = 4;
         int actualRound = 0;
-        Dictionary<string, int> motsTrouves;
         List<string> currentWords;
         Dictionary<char, int> lettersScores;
         Tree tree;
@@ -246,7 +245,7 @@ namespace JeuNamespace
                             if (actualPlayer == this.player1.PlayerName)
                             {
                                 this.player1.ScorePlayer += scoreFromWord(word);
-                                if (motsTrouves.ContainsKey(word))
+                                if (this.player1.MotsTrouves.ContainsKey(word))
                                 {
                                     this.player1.MotsTrouves[word]++;
                                 }
@@ -258,7 +257,7 @@ namespace JeuNamespace
                             else
                             {
                                 this.player2.ScorePlayer += scoreFromWord(word);
-                                if (motsTrouves.ContainsKey(word))
+                                if (this.player2.MotsTrouves.ContainsKey(word))
                                 {
                                     this.player2.MotsTrouves[word]++;
                                 }
@@ -677,7 +676,6 @@ namespace JeuNamespace
             this.lettersScores = lettersScores;
             this.tree = mainTree;
             this.lettersAlphabet = lettersAlphabet;
-            this.motsTrouves = new Dictionary<string, int>();
            
             this.player1 = new Joueur(null);
             this.player2 = new Joueur(null);
