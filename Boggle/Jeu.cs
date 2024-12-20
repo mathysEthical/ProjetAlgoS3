@@ -19,8 +19,6 @@ namespace JeuNamespace
         int[] lettersProbas;
         int gameTime = 4;
         int actualRound = 0;
-        int scorePlayer1;
-        int scorePlayer2;
         Dictionary<string, int> motsTrouves;
         List<string> currentWords;
         Dictionary<char, int> lettersScores;
@@ -247,7 +245,7 @@ namespace JeuNamespace
                             affichage = "Mot "+word+" valide ! "+scoreFromWord(word)+" points";
                             if (actualPlayer == this.player1.PlayerName)
                             {
-                                this.scorePlayer1 += scoreFromWord(word);
+                                this.player1.ScorePlayer += scoreFromWord(word);
                                 if (motsTrouves.ContainsKey(word))
                                 {
                                     this.player1.MotsTrouves[word]++;
@@ -259,7 +257,7 @@ namespace JeuNamespace
                             }
                             else
                             {
-                                this.scorePlayer2 += scoreFromWord(word);
+                                this.player2.ScorePlayer += scoreFromWord(word);
                                 if (motsTrouves.ContainsKey(word))
                                 {
                                     this.player2.MotsTrouves[word]++;
@@ -487,7 +485,7 @@ namespace JeuNamespace
                     int nextIdx = idx.Next(0,allWords.Length);
                     List<int> idxUtilises = new List<int>();
                     int scoreP2 = 0;
-                    while (scoreP2 <= this.scorePlayer1)
+                    while (scoreP2 <= this.player1.ScorePlayer)
                     {
                         while (idxUtilises.Contains(nextIdx))
                         {
@@ -529,8 +527,8 @@ namespace JeuNamespace
             }
             Console.WriteLine("Temps écoulé !");
             Console.WriteLine("Scores actuels : ");
-            Console.WriteLine(this.player1.PlayerName+" : "+this.scorePlayer1);
-            Console.WriteLine(this.player2.PlayerName+" : "+this.scorePlayer2);
+            Console.WriteLine(this.player1.PlayerName+" : "+this.player1.ScorePlayer);
+            Console.WriteLine(this.player2.PlayerName+" : "+this.player2.ScorePlayer);
             if (actualRound < gameTime)
             {
                 NextRound();
