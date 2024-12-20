@@ -86,10 +86,10 @@ namespace ProgramNamespace
         public static string AskLanguage()
         {
             string language = "LANGUAGE";
-            while (language != "FR" && language != "EN")
+            while (language != "FR" && language.ToUpper() != "EN")
             {
                 Console.Write("Language (FR/EN): ");
-                language = Console.ReadLine();
+                language = Console.ReadLine().ToUpper();
             }
             return language;
         }
