@@ -48,9 +48,9 @@ git push
 - [x] Ajout verification out of index si pas assez de mots
 - [x] Tests unitaires
 - [x] Rapport du projet (explication de l'avancé avec les dates)
-- [ ] Commentaires
+- [x] Commentaires
 - [x] Joueur IA niveau troll 
 - [x] Nuage de mots
+- [x] Try / Catch sur les lectures / ecritures
+- [x] utiliser le StreamReader pour lire les fichiers
 - [ ] Modélisation UML
-- [ ] Try / Catch sur les lectures / ecritures
-- [ ] utiliser le StreamReader pour lire les fichiers
