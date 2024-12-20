@@ -106,7 +106,6 @@ namespace ProgramNamespace
                 mainTree.AddWord(dico.Words[i]);
             }
 
-            Console.WriteLine(LoadFile("lettres.txt"));
             string[] lettersContentArray = LoadFile("lettres.txt").Split('\n');
             char[] lettersAlphabet = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
             Dictionary<char, int> letterScores = LoadLettersScore(lettersContentArray);
