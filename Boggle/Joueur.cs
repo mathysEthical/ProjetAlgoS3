@@ -34,6 +34,18 @@ namespace JoueurNamespace
             }
         }
 
+        public int ScorePlayer
+        {
+            get
+            {
+                return this.scorePlayer;
+            }
+            set
+            {
+                this.scorePlayer = value;
+            }
+        }
+
         /// <summary>
         /// Vérifie si un mot est contenu dans un tableau.
         /// </summary>
