@@ -11,7 +11,17 @@ namespace JoueurNamespace
         int scorePlayer = 0;
         Dictionary<string, int> motsTrouves;
 
-
+        public string PlayerName
+        {
+            get
+            {
+                return this.playerName;
+            }
+            set
+            {
+                this.playerName = value;
+            }
+        }
         public Dictionary<string, int> MotsTrouves
         {
             get

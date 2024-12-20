@@ -15,8 +15,6 @@ namespace JeuNamespace
         Plateau board;
         Joueur player1;
         Joueur player2;
-        string playerName1;
-        string playerName2;
         char[] lettersAlphabet;
         int[] lettersProbas;
         int gameTime = 4;
@@ -247,7 +245,7 @@ namespace JeuNamespace
                         if ((DateTime.Now - start).Minutes == 0)
                         {
                             affichage = "Mot "+word+" valide ! "+scoreFromWord(word)+" points";
-                            if (actualPlayer == this.playerName1)
+                            if (actualPlayer == this.player1.PlayerName)
                             {
                                 this.scorePlayer1 += scoreFromWord(word);
                                 if (motsTrouves.ContainsKey(word))
@@ -325,10 +323,10 @@ namespace JeuNamespace
         public void NextRound()
         {
             actualRound++;
-            string actualPlayer = this.playerName1;
+            string actualPlayer = this.player1.PlayerName;
             if (actualRound % 2 == 0)
             {
-                actualPlayer = this.playerName2;
+                actualPlayer = this.player2.PlayerName;
             }
             Console.WriteLine("C'est au tour de " + actualPlayer);
             Console.WriteLine("Génération du plateau...");
@@ -531,8 +529,8 @@ namespace JeuNamespace
             }
             Console.WriteLine("Temps écoulé !");
             Console.WriteLine("Scores actuels : ");
-            Console.WriteLine(this.playerName1+" : "+this.scorePlayer1);
-            Console.WriteLine(this.playerName2+" : "+this.scorePlayer2);
+            Console.WriteLine(this.player1.PlayerName+" : "+this.scorePlayer1);
+            Console.WriteLine(this.player2.PlayerName+" : "+this.scorePlayer2);
             if (actualRound < gameTime)
             {
                 NextRound();
@@ -661,9 +659,9 @@ namespace JeuNamespace
         /// </summary>
         public void GenererNuagesDeMots()
         {
-            GenererNuageDeMotsGraphique(this.player1.MotsTrouves, "nuage_de_mots_" + this.playerName1 + ".png");
-            GenererNuageDeMotsGraphique(this.player2.MotsTrouves, "nuage_de_mots_" + this.playerName2 + ".png");
-            Console.WriteLine("Nuages de mots générés : nuage_de_mots_" + this.playerName1 + ".png et nuage_de_mots_" + this.playerName2 + ".png");
+            GenererNuageDeMotsGraphique(this.player1.MotsTrouves, "nuage_de_mots_" + this.player1.PlayerName + ".png");
+            GenererNuageDeMotsGraphique(this.player2.MotsTrouves, "nuage_de_mots_" + this.player2.PlayerName + ".png");
+            Console.WriteLine("Nuages de mots générés : nuage_de_mots_" + this.player1.PlayerName + ".png et nuage_de_mots_" + this.player2.PlayerName + ".png");
         }
 
         /// <summary>
@@ -683,20 +681,20 @@ namespace JeuNamespace
             this.lettersAlphabet = lettersAlphabet;
             this.motsTrouves = new Dictionary<string, int>();
            
-                this.size = AskSize();
-                this.playerName1 = null;
-                this.playerName2 = null;
-                while (this.playerName1 == null)
-                {
-                    Console.Write("Nom du joueur 1: ");
-                    this.playerName1 = Console.ReadLine();
-                }
-                this.player1 = new Joueur(this.playerName1);
+            this.player1 = new Joueur(null);
+            this.player2 = new Joueur(null);
 
-                this.playerName2 = AskPlayer2Name();
-                this.player2 = new Joueur(this.playerName2);
-                this.gameTime = AskTime();
-            
+
+            this.size = AskSize();
+            this.player1.PlayerName = null;
+            this.player2.PlayerName = null;
+            while (this.player1.PlayerName == null)
+            {
+                Console.Write("Nom du joueur 1: ");
+                this.player1.PlayerName = Console.ReadLine();
+            }
+            this.player2.PlayerName = AskPlayer2Name();
+            this.gameTime = AskTime();
             NextRound();
             GenererNuagesDeMots();
             Console.ReadKey();
