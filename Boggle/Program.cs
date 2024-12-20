@@ -14,9 +14,35 @@ namespace ProgramNamespace
         /// </summary>
         public static string LoadFile(string filename)
         {
-            string BaseDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
-            string contents = File.ReadAllText(BaseDirectory + "..\\..\\..\\files\\" + filename);
-            return contents;
+            string contents = "";
+            try
+            {
+
+                string BaseDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
+                string filePath = BaseDirectory + "..\\..\\..\\files\\" + filename;
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    string line;
+                    // Read line by line
+                    bool isFirst = true;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        if (isFirst==false)
+                        {
+                            contents += "\n";
+                        }
+                        contents += line;
+                        isFirst = false;
+                    }
+
+                }
+                return contents;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return "error";
+            }
         }
 
         /// <summary>
@@ -80,6 +106,7 @@ namespace ProgramNamespace
                 mainTree.AddWord(dico.Words[i]);
             }
 
+            Console.WriteLine(LoadFile("lettres.txt"));
             string[] lettersContentArray = LoadFile("lettres.txt").Split('\n');
             char[] lettersAlphabet = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
             Dictionary<char, int> letterScores = LoadLettersScore(lettersContentArray);
