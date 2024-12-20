@@ -7,7 +7,6 @@ using System.Drawing.Imaging;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
-using System.ComponentModel.Design;
 
 namespace JeuNamespace
 {
@@ -686,7 +685,6 @@ namespace JeuNamespace
             
             NextRound();
             GenererNuagesDeMots();
-            Console.WriteLine("Nuage de mots généré : nuage_de_mots.png");
             Console.ReadKey();
             
 
