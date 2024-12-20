@@ -37,7 +37,7 @@ namespace JeuNamespace
             int size = max + 1;
             while (size > max || size < min)
             {
-                Console.Write("Taille pour du plateau (max 20): ");
+                Console.Write("Taille pour du plateau (min : 4 / max 20): ");
                 int.TryParse(Console.ReadLine(), out size);
             }
             return size;
